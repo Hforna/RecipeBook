@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\shared\ProjectAspNet.Communication\ProjectAspNet.Communication.csproj" />
     <ProjectReference Include="..\..\shared\ProjectAspNet.Exceptions\ProjectAspNet.Exceptions.csproj" />
     <ProjectReference Include="..\ProjectAspNet.Application\ProjectAspNet.Application.csproj" />

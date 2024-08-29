@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectAspNet.Communication.Responses
+namespace ProjectAspNet.Domain.Repositories
 {
-    public class RegisterUserResponse
+    public interface IUnitOfWork
     {
-        public required string Name { get; set; }
+        public Task Commit();
     }
 }
