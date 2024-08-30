@@ -19,19 +19,18 @@ namespace ProjectAspNet.Infrastructure.Migrations
         private static void EnsureDatabaseSqlServer(string connectionString)
         {
             var serverStringBuilder = new SqlConnectionStringBuilder(connectionString);
-            var sbName = serverStringBuilder.InitialCatalog;
+            var dbName = serverStringBuilder.InitialCatalog;
             serverStringBuilder.Remove("Database");
-
-            using var connectDatabase = new SqlConnection(serverStringBuilder.ConnectionString);
+            using var connectSql = new SqlConnection(serverStringBuilder.ConnectionString);
 
             var parameters = new DynamicParameters();
-            parameters.Add("name", sbName);
-
-            var records = connectDatabase.Query("SELECT * FROM sys.databases WHERE name = @name", parameters);
-
-            if(records.Any() == false)
+            
+            parameters.Add("name", dbName);
+            
+            var result = connectSql.Query("SELECT * FROM sys.databases WHERE name = @name", parameters);
+            if (result.Any() == false)
             {
-                connectDatabase.Execute($"CREATE DATABASE {sbName}");
+                connectSql.Execute($"CREATE DATABASE {dbName}");
             }
         }
     }
