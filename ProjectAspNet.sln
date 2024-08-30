@@ -13,17 +13,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{AB6B4E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B251FA9B-142C-4CF2-AE14-73F06A90DC3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAspNet", "src\backend\ProjectAspNet\ProjectAspNet.csproj", "{83EE13EF-C2F4-4CA0-BE52-EE5AB33DE7D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectAspNet", "src\backend\ProjectAspNet\ProjectAspNet.csproj", "{83EE13EF-C2F4-4CA0-BE52-EE5AB33DE7D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAspNet.Application", "src\backend\ProjectAspNet.Application\ProjectAspNet.Application.csproj", "{F820EAF5-BD35-4A27-ABFE-2D4D20D59752}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectAspNet.Application", "src\backend\ProjectAspNet.Application\ProjectAspNet.Application.csproj", "{F820EAF5-BD35-4A27-ABFE-2D4D20D59752}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAspNet.Domain", "src\backend\ProjectAspNet.Domain\ProjectAspNet.Domain.csproj", "{3A94E77D-266E-421D-90D6-09B99099BAA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectAspNet.Domain", "src\backend\ProjectAspNet.Domain\ProjectAspNet.Domain.csproj", "{3A94E77D-266E-421D-90D6-09B99099BAA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAspNet.Infrastructure", "src\backend\ProjectAspNet.Infrastructure\ProjectAspNet.Infrastructure.csproj", "{881863A1-BAE0-4A8A-871B-58828375B8A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectAspNet.Infrastructure", "src\backend\ProjectAspNet.Infrastructure\ProjectAspNet.Infrastructure.csproj", "{881863A1-BAE0-4A8A-871B-58828375B8A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAspNet.Communication", "src\shared\ProjectAspNet.Communication\ProjectAspNet.Communication.csproj", "{2D1DC984-A6AF-4EB9-916D-8B2DD6B25DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectAspNet.Communication", "src\shared\ProjectAspNet.Communication\ProjectAspNet.Communication.csproj", "{2D1DC984-A6AF-4EB9-916D-8B2DD6B25DBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAspNet.Exceptions", "src\shared\ProjectAspNet.Exceptions\ProjectAspNet.Exceptions.csproj", "{BFD6ADAC-6ABF-4531-9FB0-B32264AEEF7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectAspNet.Exceptions", "src\shared\ProjectAspNet.Exceptions\ProjectAspNet.Exceptions.csproj", "{BFD6ADAC-6ABF-4531-9FB0-B32264AEEF7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators", "tests\Validators\Validators.csproj", "{DFE295AF-F324-4EF5-AD11-27ABE02C5E86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestUtilities", "tests\CommonTestUtilities\CommonTestUtilities.csproj", "{1E2BC421-61B5-4893-8EC9-FC5FA6C23917}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +59,14 @@ Global
 		{BFD6ADAC-6ABF-4531-9FB0-B32264AEEF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFD6ADAC-6ABF-4531-9FB0-B32264AEEF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFD6ADAC-6ABF-4531-9FB0-B32264AEEF7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFE295AF-F324-4EF5-AD11-27ABE02C5E86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFE295AF-F324-4EF5-AD11-27ABE02C5E86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFE295AF-F324-4EF5-AD11-27ABE02C5E86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFE295AF-F324-4EF5-AD11-27ABE02C5E86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E2BC421-61B5-4893-8EC9-FC5FA6C23917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E2BC421-61B5-4893-8EC9-FC5FA6C23917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E2BC421-61B5-4893-8EC9-FC5FA6C23917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E2BC421-61B5-4893-8EC9-FC5FA6C23917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +81,8 @@ Global
 		{881863A1-BAE0-4A8A-871B-58828375B8A0} = {591BA01E-3EAB-4CCF-87F2-BAB89EE205E6}
 		{2D1DC984-A6AF-4EB9-916D-8B2DD6B25DBB} = {AB6B4EA0-016C-4E12-97C3-D86AF2BE187C}
 		{BFD6ADAC-6ABF-4531-9FB0-B32264AEEF7C} = {AB6B4EA0-016C-4E12-97C3-D86AF2BE187C}
+		{DFE295AF-F324-4EF5-AD11-27ABE02C5E86} = {B251FA9B-142C-4CF2-AE14-73F06A90DC3F}
+		{1E2BC421-61B5-4893-8EC9-FC5FA6C23917} = {B251FA9B-142C-4CF2-AE14-73F06A90DC3F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D71DCE1-D299-4904-950B-9223AF5D5B79}
