@@ -1,5 +1,6 @@
 using ProjectAspNet.Application;
 using ProjectAspNet.Infrastructure;
+using ProjectAspNet.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 
 var app = builder.Build();
@@ -28,5 +29,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+DatabaseMigration.Migrate(builder.Configuration.GetConnectionString("sqlserverconnection")!);
 
 app.Run();

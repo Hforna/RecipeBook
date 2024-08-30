@@ -9,20 +9,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectAspNet.Domain.Repositories.Products;
+using Microsoft.Extensions.Configuration;
 
 namespace ProjectAspNet.Infrastructure
 {
     public static class DependencyInjectionInfrastructure
     {
-        public static void AddInfrastructure(this IServiceCollection services)
+        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             AddUserDbContext(services);
-            AddDbContext(services);
+            AddDbContext(services, configuration);
         }
 
-        public static void AddDbContext(IServiceCollection service)
+        public static void AddDbContext(IServiceCollection service, IConfiguration configuration)
         {
-            var connection = "Server=DESKTOP-AIT91VG;Database=MydotnetProject;Trusted_Connection=True;TrustServerCertificate=True;";
+            var connection = configuration.GetConnectionString("sqlserverconnection");
             service.AddDbContext<ProjectAspNetDbContext>(DbContextOptions => DbContextOptions.UseSqlServer(connection));
         }
 
