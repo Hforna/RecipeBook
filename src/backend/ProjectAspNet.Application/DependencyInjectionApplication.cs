@@ -19,18 +19,11 @@ namespace ProjectAspNet.Application
             AddRegisterUserCase(services);
             AddCryptography(services);
             AddRegisterProductCase(services);
-            AddProductMapper(services);
         }
 
         public static void AddUserMapper(IServiceCollection service)
         {
-            var mapper = new AutoMapper.MapperConfiguration(x => { x.AddProfile(new UserMappper()); }).CreateMapper();
-            service.AddScoped(opt => mapper);
-        }
-
-        public static void AddProductMapper(IServiceCollection service)
-        {
-            var mapper = new AutoMapper.MapperConfiguration(x => { x.AddProfile(new ProductMapper()); }).CreateMapper();
+            var mapper = new AutoMapper.MapperConfiguration(x => { x.AddProfile(new UserMappper()); x.AddProfile(new ProductMapper()); }).CreateMapper();
             service.AddScoped(opt => mapper);
         }
 

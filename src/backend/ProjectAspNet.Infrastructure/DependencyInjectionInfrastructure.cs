@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectAspNet.Domain.Repositories.Products;
 using Microsoft.Extensions.Configuration;
+using FluentMigrator.Runner;
+using System.Reflection;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -19,6 +21,7 @@ namespace ProjectAspNet.Infrastructure
         {
             AddUserDbContext(services);
             AddDbContext(services, configuration);
+            AddFluentMigratior(services, configuration);
         }
 
         public static void AddDbContext(IServiceCollection service, IConfiguration configuration)
@@ -33,6 +36,15 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<IUserAdd, UserRegisterDbContext>();
             service.AddScoped<IUnitOfWork, UnitOfWork>();
             service.AddScoped<IProductAdd, ProductRegisterDbContext>();
+        }
+
+        public static void AddFluentMigratior(IServiceCollection service, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetConnectionString("sqlserverconnection");
+            service.AddFluentMigratorCore().ConfigureRunner(opt =>
+            {
+                opt.AddSqlServer().WithGlobalConnectionString(connectionString).ScanIn(Assembly.Load("ProjectAspNet.Infrastructure")).For.All();
+            });
         }
     }
 }

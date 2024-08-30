@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 namespace ProjectAspNet.Infrastructure.Migrations.Versions
 {
     [Migration(1, "Create User version")]
-    public class Version_01 : ForwardOnlyMigration
+    public class Version_01 : VersionBase
     {
         public override void Up()
         {
-            throw new NotImplementedException();
+            CreateTable("users")
+                .WithColumn("Name").AsString(255).NotNullable()
+                .WithColumn("Email").AsString(255).NotNullable()
+                .WithColumn("Password").AsString(2000).NotNullable();
         }
     }
 }

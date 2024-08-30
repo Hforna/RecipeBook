@@ -30,6 +30,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-DatabaseMigration.Migrate(builder.Configuration.GetConnectionString("sqlserverconnection")!);
+var dd = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+DatabaseMigration.Migrate(builder.Configuration.GetConnectionString("sqlserverconnection")!, dd.ServiceProvider);
 
 app.Run();
