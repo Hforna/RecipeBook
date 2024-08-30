@@ -13,6 +13,7 @@ namespace ProjectAspNet.Infrastructure.DataEntity
         public ProjectAspNetDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<UserEntitie> Users { get; set; }
+        public DbSet<ProductEntitie> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

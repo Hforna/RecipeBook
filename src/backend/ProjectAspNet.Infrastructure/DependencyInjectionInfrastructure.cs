@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectAspNet.Domain.Repositories.Products;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -30,6 +31,7 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<IUserEmailExists, UserRegisterDbContext>();
             service.AddScoped<IUserAdd, UserRegisterDbContext>();
             service.AddScoped<IUnitOfWork, UnitOfWork>();
+            service.AddScoped<IProductAdd, ProductRegisterDbContext>();
         }
     }
 }
