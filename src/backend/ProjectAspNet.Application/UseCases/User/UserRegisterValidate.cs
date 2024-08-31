@@ -14,8 +14,13 @@ namespace ProjectAspNet.Application.UseCases.User
         public UserRegisterValidate()
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage(ResourceExceptMessages.NAME_EMPTY);
-            RuleFor(x => x.Email).EmailAddress().WithMessage(ResourceExceptMessages.EMAIL_FORMAT);
+            RuleFor(x => x.Email).NotEmpty().WithMessage(ResourceExceptMessages.NAME_EMPTY);
             RuleFor(x => x.Password.Length).GreaterThanOrEqualTo(8).WithMessage(ResourceExceptMessages.PASSWORD_LESS);
+            RuleFor(x => x.Password).NotEmpty().WithMessage(ResourceExceptMessages.NAME_EMPTY);
+            When(user => string.IsNullOrEmpty(user.Email) == false, () =>
+            {
+                RuleFor(x => x.Email).EmailAddress().WithMessage(ResourceExceptMessages.EMAIL_FORMAT);
+            });
         }
     }
 }

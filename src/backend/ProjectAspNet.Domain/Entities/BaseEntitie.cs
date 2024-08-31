@@ -10,6 +10,6 @@ namespace ProjectAspNet.Domain.Entities
     {
         public long Id { get; set; }
         public DateTime CreatedOn = DateTime.UtcNow;
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
     }
 }
