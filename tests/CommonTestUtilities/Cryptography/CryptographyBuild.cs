@@ -12,9 +12,7 @@ namespace CommonTestUtilities.Cryptography
     {
         public static PasswordCryptography Build()
         {
-            var Mock = new Mock<PasswordCryptography>();
-
-            return Mock.Object;
+            return new PasswordCryptography();
         }
     }
 }

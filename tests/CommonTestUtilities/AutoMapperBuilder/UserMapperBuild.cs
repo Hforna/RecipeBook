@@ -7,15 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommonTestUtilities.AutoMapper
+namespace CommonTestUtilities.AutoMapperBuilder
 {
     public class UserMapperBuild
     {
-        public static UserMappper Build()
+        public static IMapper Build()
         {
-            var mock = new Mock<IMapper>();
-
-            return mock.Object;
+            var mapper = new AutoMapper.MapperConfiguration(x => { x.AddProfile(new UserMappper()); x.AddProfile(new ProductMapper()); }).CreateMapper();
+            return mapper;
         }
     }
 }
