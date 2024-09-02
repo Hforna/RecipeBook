@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CommonTestUtilities.AutoMapperBuilder
 {
-    public class UserMapperBuild
+    public class AutoMapperBuild
     {
         public static IMapper Build()
         {

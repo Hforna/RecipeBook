@@ -126,4 +126,7 @@
   <data name="PASSWORD_LESS" xml:space="preserve">
     <value>A senha deve conter 8 digitos ou mais</value>
   </data>
+  <data name="HIGH_PRICE" xml:space="preserve">
+    <value>O preço é muito alto</value>
+  </data>
 </root>

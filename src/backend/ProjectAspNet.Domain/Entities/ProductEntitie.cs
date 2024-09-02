@@ -11,5 +11,7 @@ namespace ProjectAspNet.Domain.Entities
         public string ProductName { get; set; } = string.Empty;
         public string Description {  get; set; } = string.Empty;
         public double Price { get; set; }
+        public int Quantity { get; set; }
+        public string Brand { get; set; } = string.Empty;
     }
 }

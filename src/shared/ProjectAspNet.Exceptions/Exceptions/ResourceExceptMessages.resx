@@ -128,4 +128,8 @@
     <value>Password must have 8 digits or more
 </value>
   </data>
+  <data name="HIGH_PRICE" xml:space="preserve">
+    <value>The price is mery high
+</value>
+  </data>
 </root>

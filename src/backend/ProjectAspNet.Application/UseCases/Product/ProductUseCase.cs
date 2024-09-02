@@ -4,6 +4,7 @@ using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Domain.Entities;
 using ProjectAspNet.Domain.Repositories;
 using ProjectAspNet.Domain.Repositories.Products;
+using ProjectAspNet.Exceptions.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,24 @@ namespace ProjectAspNet.Application.UseCases.Product
 
         public async Task<RegisterProductResponse> Register(RegisterProductRequest request)
         {
+            Validate(request);
             var product = _mapper.Map<ProductEntitie>(request);
             await _productAdd.Add(product);
             await _unitOfWork.Commit();
 
             return new RegisterProductResponse() { ProductName = request.ProductName };
+        }
+
+        public void Validate(RegisterProductRequest request)
+        {
+            var validate = new RegisterProductValidate();
+            var result = validate.Validate(request);
+
+            if(result.IsValid == false)
+            {
+                var errorList = result.Errors.Select(e => e.ErrorMessage).ToList();
+                throw new RegisterProductError(errorList);
+            }
         }
     }
 }

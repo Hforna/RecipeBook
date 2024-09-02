@@ -35,7 +35,7 @@ namespace UseCase
         public RegisterUserCase CreateUseCase(string? email = null)
         {
             var cryptoObject = CryptographyBuild.Build();
-            var mapper = UserMapperBuild.Build();
+            var mapper = AutoMapperBuild.Build();
             var unitOfWork = UnitOfWorkBuild.Build();
             var userAdd = UserAddBuild.Build();
             var userEmailExists = new UserEmailExistsBuild();

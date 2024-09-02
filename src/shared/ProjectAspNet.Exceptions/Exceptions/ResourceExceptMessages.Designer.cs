@@ -70,6 +70,16 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The price is mery high
+        ///.
+        /// </summary>
+        public static string HIGH_PRICE {
+            get {
+                return ResourceManager.GetString("HIGH_PRICE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The name cannot be empty
         ///.
         /// </summary>

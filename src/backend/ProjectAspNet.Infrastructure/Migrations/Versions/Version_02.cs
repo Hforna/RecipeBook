@@ -15,7 +15,9 @@ namespace ProjectAspNet.Infrastructure.Migrations.Versions
             CreateTable("products")
                 .WithColumn("ProductName").AsString(200).NotNullable()
                 .WithColumn("Description").AsString(2000).NotNullable()
-                .WithColumn("Price").AsDouble().NotNullable();
+                .WithColumn("Price").AsDouble().NotNullable()
+                .WithColumn("Brand").AsString().NotNullable()
+                .WithColumn("Quantity").AsInt64().NotNullable();
         }
     }
 }
