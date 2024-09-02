@@ -52,7 +52,7 @@ namespace ProjectAspNet.Application.UseCases.User
             var result = validate.Validate(request);
             if(await _userEmailExists.EmailExists(request.Email))
             {
-                throw new RegisterUserError("This e-mail already exists");
+                result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, "This e-mail already exists"));
             }
 
             if(result.IsValid == false)

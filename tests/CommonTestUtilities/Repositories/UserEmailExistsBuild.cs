@@ -14,6 +14,11 @@ namespace CommonTestUtilities.Repositories
 
         public UserEmailExistsBuild() => _repository = new Mock<IUserEmailExists>();
 
+        public void EmailExists(string email)
+        {
+            _repository.Setup(rep => rep.EmailExists(email)).ReturnsAsync(true);
+        }
+
         public IUserEmailExists Build() => _repository.Object;
     }
 }
