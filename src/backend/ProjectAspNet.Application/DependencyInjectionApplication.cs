@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using ProjectAspNet.Application.Services.AutoMapper;
 using ProjectAspNet.Application.Services.Cryptography;
 using ProjectAspNet.Application.UseCases.Product;
@@ -13,11 +14,11 @@ namespace ProjectAspNet.Application
 {
     public static class DependencyInjectionApplication
     {
-        public static void AddApplication(this IServiceCollection services)
+        public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
             AddUserMapper(services);
             AddRegisterUserCase(services);
-            AddCryptography(services);
+            AddCryptography(services, configuration);
             AddRegisterProductCase(services);
         }
 
@@ -37,9 +38,9 @@ namespace ProjectAspNet.Application
             service.AddScoped<IProductCase, ProductUseCase>();
         }
 
-        public static void AddCryptography(IServiceCollection service)
+        public static void AddCryptography(IServiceCollection service, IConfiguration configuration)
         {
-            service.AddScoped(opt => new PasswordCryptography());
+            service.AddScoped(opt => new PasswordCryptography(configuration.GetSection("settings:application:cryptography").Value));
         }
     }
 }

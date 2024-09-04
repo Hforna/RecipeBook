@@ -10,13 +10,13 @@ namespace CommonTestUtilities.Request.Product
 {
     public class RegisterProductRequestBuilder
     {
-        public static RegisterProductRequest Create()
+        public static RegisterProductRequest Create(int quantityPrice = 1)
         {
             return new Faker<RegisterProductRequest>()
                 .RuleFor(pd => pd.ProductName, (f) => f.Commerce.ProductName())
-                .RuleFor(pd => pd.Price, (f) => double.Parse(f.Commerce.Price()))
+                .RuleFor(pd => pd.Price, (f) => double.Parse(f.Commerce.Price(quantityPrice, 100000)))
                 .RuleFor(pd => pd.Description, (f) => f.Commerce.ProductDescription())
-                .RuleFor(pd => pd.Quantity, (f) => f.Random.Int(1, 10000))
+                .RuleFor(pd => pd.Quantity, (f) => f.Random.Int(10, 10000))
                 .RuleFor(pd => pd.Brand, (f) => f.Company.CompanyName());
 
 

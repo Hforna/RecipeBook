@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Infrastructure.Migrations.Versions
 {
-    [Migration(2, "Create product table")]
-    public class Version_02 : VersionBase
+    [Migration(3, "add more columns in product table")]
+    public class Version03 : VersionBase
     {
         public override void Up()
         {
             CreateTable("products")
                 .WithColumn("ProductName").AsString(200).NotNullable()
                 .WithColumn("Description").AsString(2000).NotNullable()
-                .WithColumn("Price").AsDouble().NotNullable();
+                .WithColumn("Price").AsDouble().NotNullable()
+                .WithColumn("Brand").AsString().NotNullable()
+                .WithColumn("Quantity").AsInt64().NotNullable();
         }
     }
 }

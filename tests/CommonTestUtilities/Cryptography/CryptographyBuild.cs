@@ -12,7 +12,7 @@ namespace CommonTestUtilities.Cryptography
     {
         public static PasswordCryptography Build()
         {
-            return new PasswordCryptography();
+            return new PasswordCryptography("asd");
         }
     }
 }

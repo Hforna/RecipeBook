@@ -21,9 +21,6 @@ namespace ProjectAspNet.Application.UseCases.User
         private IUnitOfWork _unitOfWork;
         private IUserAdd _userAdd;
         private IUserEmailExists _userEmailExists;
-        private UserEntitie user;
-        private PasswordCryptography cryptoObject;
-        private IUnitOfWork unitOfWork;
 
         public RegisterUserCase(IMapper mapper, PasswordCryptography password, IUnitOfWork unitOfWork, IUserAdd userAdd, IUserEmailExists userEmailExists)
         {

@@ -14,7 +14,7 @@ namespace ProjectAspNet.Application.UseCases.Product
         public RegisterProductValidate()
         {
             RuleFor(pr => pr.ProductName).NotEmpty().WithMessage(ResourceExceptMessages.NAME_EMPTY);
-            RuleFor(pr => pr.Price).LessThanOrEqualTo(1000000).WithMessage(ResourceExceptMessages.HIGH_PRICE);
+            RuleFor(pr => pr.Price).LessThanOrEqualTo(100000).WithMessage(ResourceExceptMessages.HIGH_PRICE);
             RuleFor(pr => pr.Quantity).NotNull();
             When(pr => string.IsNullOrEmpty(pr.ProductName) == false, () =>
             {

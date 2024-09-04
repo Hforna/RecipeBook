@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,16 +8,16 @@ namespace ProjectAspNet.Exceptions.Exceptions
 {
     public class RegisterProductError : ProjectExceptionBase
     {
-        public IList? Errors { get; set; }
+        public List<string> Errors { get; set; }
 
-        public RegisterProductError(IList errors)
+        public RegisterProductError(List<string> errors)
         {
             Errors = errors;
         }
 
         public RegisterProductError(string error)
         {
-            Errors = new List<RegisterProductError>();
+            Errors = new List<string>();
             Errors.Add(error);
         }
     }

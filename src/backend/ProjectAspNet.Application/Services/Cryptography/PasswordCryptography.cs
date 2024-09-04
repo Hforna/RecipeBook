@@ -9,9 +9,13 @@ namespace ProjectAspNet.Application.Services.Cryptography
 {
     public class PasswordCryptography
     {
+        private readonly string _keyWord;
+        public PasswordCryptography(string keyWord) => _keyWord = keyWord;
+
         public string Encrypt(string password)
         {
-            var bytes = Encoding.UTF8.GetBytes(password);
+            var newPassword = $"{_keyWord}{password}";
+            var bytes = Encoding.UTF8.GetBytes(newPassword);
             var encrypt = SHA512.HashData(bytes);
             return ToString(encrypt);
         }

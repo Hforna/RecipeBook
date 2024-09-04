@@ -12,6 +12,7 @@ using ProjectAspNet.Domain.Repositories.Products;
 using Microsoft.Extensions.Configuration;
 using FluentMigrator.Runner;
 using System.Reflection;
+using ProjectAspNet.Infrastructure.Extensions;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -20,6 +21,8 @@ namespace ProjectAspNet.Infrastructure
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             AddUserDbContext(services);
+            if (configuration.InMemoryEnviroment())
+                return;
             AddDbContext(services, configuration);
             AddFluentMigratior(services, configuration);
         }
