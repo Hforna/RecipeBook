@@ -4,7 +4,7 @@ namespace ProjectAspNet.Middlewares
 {
     public class CultureInfoMiddleware
     {
-        public RequestDelegate _next;
+        private readonly RequestDelegate _next;
         public CultureInfoMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -16,7 +16,7 @@ namespace ProjectAspNet.Middlewares
             var requestLanguage = context.Request.Headers.AcceptLanguage;
             var currentCulture = new CultureInfo("us");
 
-            if(string.IsNullOrEmpty(requestLanguage) == false && acceptedLanguages.Any(x => x.Equals(requestLanguage)))
+            if(!string.IsNullOrEmpty(requestLanguage) && acceptedLanguages.Any(x => x.Equals(requestLanguage)))
             {
                 currentCulture = new CultureInfo(requestLanguage!);
             }

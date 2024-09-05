@@ -20,7 +20,7 @@ namespace ProjectAspNet.Application.Services.Cryptography
             return ToString(encrypt);
         }
 
-        public string ToString(byte[] bytes)
+        public static string ToString(byte[] bytes)
         {
             var sB = new StringBuilder();
             foreach (byte b in bytes)

@@ -16,13 +16,13 @@ namespace ProjectAspNet_API.Filters
                 {
                     var exception = context.Exception as RegisterUserError;
                     context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Result = new BadRequestObjectResult(new RegisterUserError(exception.Errors));
+                    context.Result = new BadRequestObjectResult(new RegisterUserError(exception!.Errors));
                 }
                 if(context.Exception is  RegisterProductError)
                 {
                     var exception = context.Exception as RegisterProductError;
                     context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Result = new BadRequestObjectResult(new RegisterProductError(exception.Errors));
+                    context.Result = new BadRequestObjectResult(new RegisterProductError(exception!.Errors));
                 }
             }
             else

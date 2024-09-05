@@ -2,6 +2,7 @@
 using FluentMigrator;
 using FluentMigrator.Runner;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -22,19 +23,16 @@ namespace ProjectAspNet.Infrastructure.Migrations
         }
         private static void EnsureDatabaseSqlServer(string connectionString)
         {
-            var serverStringBuilder = new SqlConnectionStringBuilder(connectionString);
-            var dbName = serverStringBuilder.InitialCatalog;
-            serverStringBuilder.Remove("Database");
-            using var connectSql = new SqlConnection(serverStringBuilder.ConnectionString);
-
+            var stringBuilder = new SqlConnectionStringBuilder(connectionString);
+            var dbName = stringBuilder.InitialCatalog;
+            stringBuilder.Remove(dbName);
+            var connectServer = new SqlConnection(stringBuilder.ConnectionString);
             var parameters = new DynamicParameters();
-            
             parameters.Add("name", dbName);
-            
-            var result = connectSql.Query("SELECT * FROM sys.databases WHERE name = @name", parameters);
-            if (result.Any() == false)
+            var dbInServer = connectServer.Query("SELECT * FROM sys.databases where name = @name", parameters);
+            if(dbInServer is null)
             {
-                connectSql.Execute($"CREATE DATABASE {dbName}");
+                connectServer.Execute($"CREATE TABLE {dbName}");
             }
         }
 

@@ -25,5 +25,6 @@ namespace UseCase
 
             result.ProductName.Should().Be(request.ProductName);
         }
+
     }
 }

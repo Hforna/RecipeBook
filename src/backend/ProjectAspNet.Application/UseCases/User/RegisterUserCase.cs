@@ -16,11 +16,11 @@ namespace ProjectAspNet.Application.UseCases.User
 {
     public class RegisterUserCase : IUserCase
     {
-        private IMapper _mapper;
-        private PasswordCryptography _password;
-        private IUnitOfWork _unitOfWork;
-        private IUserAdd _userAdd;
-        private IUserEmailExists _userEmailExists;
+        private readonly IMapper _mapper;
+        private readonly PasswordCryptography _password;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserAdd _userAdd;
+        private readonly IUserEmailExists _userEmailExists;
 
         public RegisterUserCase(IMapper mapper, PasswordCryptography password, IUnitOfWork unitOfWork, IUserAdd userAdd, IUserEmailExists userEmailExists)
         {
@@ -52,7 +52,7 @@ namespace ProjectAspNet.Application.UseCases.User
                 result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, "This e-mail already exists"));
             }
 
-            if(result.IsValid == false)
+            if(!result.IsValid)
             {
                 var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
                 throw new RegisterUserError(errorMessages);

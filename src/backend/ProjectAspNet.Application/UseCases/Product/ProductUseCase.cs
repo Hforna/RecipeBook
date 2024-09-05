@@ -15,9 +15,9 @@ namespace ProjectAspNet.Application.UseCases.Product
 {
     public class ProductUseCase : IProductCase
     {
-        private IProductAdd _productAdd;
-        private IUnitOfWork _unitOfWork;
-        private IMapper _mapper;
+        private readonly IProductAdd _productAdd;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
         public ProductUseCase(IProductAdd productAdd, IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -36,12 +36,12 @@ namespace ProjectAspNet.Application.UseCases.Product
             return new RegisterProductResponse() { ProductName = request.ProductName };
         }
 
-        public void Validate(RegisterProductRequest request)
+        public static void Validate(RegisterProductRequest request)
         {
             var validate = new RegisterProductValidate();
             var result = validate.Validate(request);
 
-            if(result.IsValid == false)
+            if(!result.IsValid)
             {
                 var errorList = result.Errors.Select(e => e.ErrorMessage).ToList();
                 throw new RegisterProductError(errorList);

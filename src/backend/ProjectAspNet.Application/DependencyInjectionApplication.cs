@@ -40,7 +40,7 @@ namespace ProjectAspNet.Application
 
         public static void AddCryptography(IServiceCollection service, IConfiguration configuration)
         {
-            service.AddScoped(opt => new PasswordCryptography(configuration.GetSection("settings:application:cryptography").Value));
+            service.AddScoped(opt => new PasswordCryptography(configuration.GetSection("settings:application:cryptography").Value!));
         }
     }
 }
