@@ -20,7 +20,7 @@ namespace ProjectAspNet.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            AddUserDbContext(services);
+            AddRepositoriesDbContext(services);
             if (configuration.InMemoryEnviroment())
                 return;
             AddDbContext(services, configuration);
@@ -33,7 +33,7 @@ namespace ProjectAspNet.Infrastructure
             service.AddDbContext<ProjectAspNetDbContext>(DbContextOptions => DbContextOptions.UseSqlServer(connection));
         }
 
-        public static void AddUserDbContext(IServiceCollection service)
+        public static void AddRepositoriesDbContext(IServiceCollection service)
         {
             service.AddScoped<IUserEmailExists, UserRegisterDbContext>();
             service.AddScoped<IUserAdd, UserRegisterDbContext>();

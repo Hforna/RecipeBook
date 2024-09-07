@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ProjectAspNet.Infrastructure.Migrations.Versions
 {
     [Migration(1, "Create User version")]
-    public class Version_01 : VersionBase
+    public class Version01 : VersionBase
     {
         public override void Up()
         {

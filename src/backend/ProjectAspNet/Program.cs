@@ -3,12 +3,12 @@ using ProjectAspNet.Infrastructure;
 using ProjectAspNet.Infrastructure.Extensions;
 using ProjectAspNet.Infrastructure.Migrations;
 using ProjectAspNet_API.Filters;
+using ProjectAspNet.Converters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOptions.Converters.Add(new StringConverter()));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -17,6 +17,7 @@ builder.Services.AddMvc(opt => opt.Filters.Add(typeof(FilterExceptions)));
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
 
 var app = builder.Build();
 

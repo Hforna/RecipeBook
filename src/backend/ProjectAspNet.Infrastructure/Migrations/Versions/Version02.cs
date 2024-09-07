@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ProjectAspNet.Infrastructure.Migrations.Versions
 {
     [Migration(2, "Create product table")]
-    public class Version_02 : VersionBase
+    public class Version02 : VersionBase
     {
         public override void Up()
         {
