@@ -16,16 +16,15 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-    - name: Install SonarCloud Scanner
-      uses: sonarsource/sonarcloud-github-action@v3
-      with:
-        sonarcloud-token: ${{ secrets.SONAR_TOKEN }} # Adicione o seu token de autenticação no Secrets do GitHub
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Run SonarCloud Analysis
-      run: dotnet sonarscanner begin /k:"Hforna_WebAPILearningCSharp" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+      uses: sonarsource/sonarcloud-github-action@v3
+      with:
+        entryPoint: "dotnet"
+        args: "sonarscanner begin /k:\"Hforna_WebAPILearningCSharp\" /d:sonar.login=\"${{ secrets.SONAR_TOKEN }}\" /d:sonar.host.url=\"https://sonarcloud.io\""
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: End SonarCloud Analysis
