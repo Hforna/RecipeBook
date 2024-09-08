@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectAspNet.Communication.Responses;
+using ProjectAspNet.Domain.Entities;
 
 namespace CommonTestUtilities.Repositories
 {
@@ -17,6 +19,11 @@ namespace CommonTestUtilities.Repositories
         public void EmailExists(string email)
         {
             _repository.Setup(rep => rep.EmailExists(email)).ReturnsAsync(true);
+        }
+
+        public void Password_Email_Exists(UserEntitie user)
+        {
+            _repository.Setup(rep => rep.LoginByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user);
         }
 
         public IUserEmailExists Build() => _repository.Object;
