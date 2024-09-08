@@ -10,12 +10,12 @@ namespace ProjectAspNet.Exceptions.Exceptions
     {
         public List<string> Errors { get; set; }
 
-        public RegisterProductError(List<string> errors)
+        public RegisterProductError(List<string> errors) : base(string.Empty)
         {
             Errors = errors;
         }
 
-        public RegisterProductError(string error)
+        public RegisterProductError(string error) : base(string.Empty)
         {
             Errors = new List<string>();
             Errors.Add(error);

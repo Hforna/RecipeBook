@@ -9,8 +9,12 @@ namespace ProjectAspNet.Application.Services.Cryptography
 {
     public class PasswordCryptography
     {
-        private readonly string _keyWord;
+        private readonly string _keyWord = "asd";
         public PasswordCryptography(string keyWord) => _keyWord = keyWord;
+
+        public PasswordCryptography()
+        {
+        }
 
         public string Encrypt(string password)
         {

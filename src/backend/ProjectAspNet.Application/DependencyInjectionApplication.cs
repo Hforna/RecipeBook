@@ -31,6 +31,7 @@ namespace ProjectAspNet.Application
         public static void AddRegisterUserCase(IServiceCollection service)
         {
             service.AddScoped<IUserCase, RegisterUserCase>();
+            service.AddScoped<ILoginUser, LoginUserCase>();
         }
 
         public static void AddRegisterProductCase(IServiceCollection service)

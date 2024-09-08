@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjectAspNet.Application.UseCases.Product;
 using ProjectAspNet.Communication.Requests;
+using ProjectAspNet.Controllers.BaseController;
 
 namespace ProjectAspNet.Controllers
 {
     [Route("products")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController : BaseControllerProject
     {
         [HttpPost]
         public async Task<IActionResult> Execute([FromBody] RegisterProductRequest request, [FromServices] IProductCase productCase)

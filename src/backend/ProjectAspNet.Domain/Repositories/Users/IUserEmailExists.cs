@@ -10,5 +10,7 @@ namespace ProjectAspNet.Domain.Repositories.Users
     public interface IUserEmailExists
     {
         public Task<bool> EmailExists(string email);
+
+        public Task<UserEntitie?> LoginByEmailAndPassword(string email, string password);
     }
 }

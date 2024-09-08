@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Exceptions.Exceptions
 {
-    public class ProjectExceptionBase : SystemException
+    public class LoginUserException : ProjectExceptionBase
     {
-        public ProjectExceptionBase(string message) : base(message) { }
+        public LoginUserException() : base(ResourceExceptMessages.EMAIL_OR_PASSWORD_INVALID) {}
     }
 }
