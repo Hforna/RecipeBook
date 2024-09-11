@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Communication.Responses
 {
-    public class RegisterUserResponse
+    public class TokenResponse
     {
-        public required string Name { get; set; }
-        public TokenResponse Token { get; set; } = default!;
+        public string TokenGenerated {  get; set; } = string.Empty;
     }
 }

@@ -29,6 +29,16 @@ namespace UseCases
         }
 
         [Fact]
+        public async Task Success_Token_Generate()
+        {
+            var request = RegisterUserRequestBuilder.Create();
+            var useCase = CreateUseCase(request);
+            var result = await useCase.Execute(request);
+
+            result.Token.TokenGenerated.Should().NotBeNullOrEmpty();
+        }
+
+        [Fact]
         public async Task Error_Email_Exists()
         {
             var request = RegisterUserRequestBuilder.Create();
@@ -38,19 +48,19 @@ namespace UseCases
             await Assert.ThrowsAsync<RegisterUserError>(() => useCase.Execute(request));           
         }
 
-        public RegisterUserCase CreateUseCase(RegisterUserRequest request, bool emailResult)
+        public RegisterUserCase CreateUseCase(RegisterUserRequest request, bool emailResult = false)
         {
             var mapper = AutoMapperBuild.Build();
             var unitOfWork = UnitOfWorkBuild.Build();
             var cryptography = CryptographyBuild.Build();
             var userAdd = UserAddBuild.Build();
             var userEmailExists = new UserEmailExistsBuild();
+            var generateToken = JwtTokenGenerate.Build();
 
             if (request.Email is not null)
                 userEmailExists.EmailExists(request.Email, emailResult);
 
-            return new RegisterUserCase(mapper, cryptography, unitOfWork, userAdd, userEmailExists.Build());
-
+            return new RegisterUserCase(mapper, cryptography, unitOfWork, userAdd, userEmailExists.Build(), generateToken);
         }
     }
 }

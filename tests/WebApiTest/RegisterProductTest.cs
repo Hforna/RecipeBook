@@ -45,8 +45,8 @@ namespace WebApiTest
 
             await using var readStream = await response.Content.ReadAsStreamAsync();
             var toJsonResponse = await JsonDocument.ParseAsync(readStream);
-            var errors = toJsonResponse.RootElement.GetProperty("errors").EnumerateArray();
 
+            var errors = toJsonResponse.RootElement.GetProperty("errors").EnumerateArray();
             errors.Should().ContainSingle(ResourceExceptMessages.NAME_EMPTY);
         }
     }

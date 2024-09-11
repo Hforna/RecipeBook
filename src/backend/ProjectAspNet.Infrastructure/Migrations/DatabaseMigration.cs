@@ -29,11 +29,11 @@ namespace ProjectAspNet.Infrastructure.Migrations
             var connectServer = new SqlConnection(stringBuilder.ConnectionString);
             var parameters = new DynamicParameters();
             parameters.Add("name", dbName);
+
             var dbInServer = connectServer.Query("SELECT * FROM sys.databases where name = @name", parameters);
-            if(dbInServer is null)
-            {
-                connectServer.Execute($"CREATE TABLE {dbName}");
-            }
+            if (dbInServer is null)
+                connectServer.Execute($"CREATE DATABASE {dbName}");
+            
         }
 
         private static void MigrationDatabase(IServiceProvider serviceProvider)

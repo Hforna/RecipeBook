@@ -21,7 +21,7 @@ namespace UseCases
         public async Task Success()
         {
             var user = UserEntitieTest.Build();
-            var useCase = CreateLoginUseCase(user.user, false);
+            var useCase = CreateLoginUseCase(user.user, true);
             var result = await useCase.Execute(new LoginUserRequest()
             {
                 Email = user.user.Email,
@@ -31,10 +31,24 @@ namespace UseCases
         }
 
         [Fact]
-        public async Task ErrorPasswordEmailExists()
+        public async Task Success_Token_Generate()
         {
             var user = UserEntitieTest.Build();
             var useCase = CreateLoginUseCase(user.user, true);
+            var result = await useCase.Execute(new LoginUserRequest()
+            {
+                Email= user.user.Email,
+                Password = user.password
+            });
+
+            result.Token.Should().NotBeNull();
+        }
+
+        [Fact]
+        public async Task ErrorPasswordEmailExists()
+        {
+            var user = UserEntitieTest.Build();
+            var useCase = CreateLoginUseCase(user.user, false);
             var result = useCase.Execute(new LoginUserRequest()
             {
                 Email = user.user.Email,
@@ -42,17 +56,17 @@ namespace UseCases
             });
 
             await Assert.ThrowsAsync<LoginUserException>(() => result);
-
         }
 
         public static LoginUserCase CreateLoginUseCase(UserEntitie user, bool exists)
         {
             var EmailExists = new UserEmailExistsBuild();
             var Cryptography = CryptographyBuild.Build();
+            var generateToken = JwtTokenGenerate.Build();
             if (user is not null)
                 EmailExists.Password_Email_Exists(user, exists);
 
-            return new LoginUserCase(EmailExists.Build(), Cryptography);
+            return new LoginUserCase(EmailExists.Build(), Cryptography, generateToken);
         }
     }
 }

@@ -13,8 +13,13 @@ namespace ProjectAspNet.Infrastructure.Security.Tokens
     public class GenerateToken : ITokenGenerator
     {
         private uint _minutesExpirate;
-        private string? _signKey;
+        private string _signKey;
 
+        public GenerateToken(uint minutesExpirate, string signKey)
+        {
+            _minutesExpirate = minutesExpirate;
+            _signKey = signKey;
+        }
         public string Generate(Guid uid)
         {
             var claims = new List<Claim> { new Claim(ClaimTypes.Sid, uid.ToString())};
@@ -23,7 +28,7 @@ namespace ProjectAspNet.Infrastructure.Security.Tokens
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(_minutesExpirate),
-                SigningCredentials = new SigningCredentials(SecurityKeyConverter(_signKey!), SecurityAlgorithms.EcdsaSha256Signature)
+                SigningCredentials = new SigningCredentials(SecurityKeyConverter(), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var tokenManipulation = new JwtSecurityTokenHandler();
@@ -32,9 +37,9 @@ namespace ProjectAspNet.Infrastructure.Security.Tokens
 
             return tokenManipulation.WriteToken(createToken);
         }
-        public SecurityKey SecurityKeyConverter(string signKey)
+        public SecurityKey SecurityKeyConverter()
         {
-            var toBytes = Encoding.UTF8.GetBytes(signKey);
+            var toBytes = Encoding.UTF8.GetBytes(_signKey);
 
             return new SymmetricSecurityKey(toBytes);
         }

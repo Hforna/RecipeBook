@@ -4,6 +4,7 @@ using ProjectAspNet.Communication.Requests;
 using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Domain.Entities;
 using ProjectAspNet.Domain.Repositories;
+using ProjectAspNet.Domain.Repositories.Security.Tokens;
 using ProjectAspNet.Domain.Repositories.Users;
 using ProjectAspNet.Exceptions.Exceptions;
 using System;
@@ -21,14 +22,16 @@ namespace ProjectAspNet.Application.UseCases.User
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserAdd _userAdd;
         private readonly IUserEmailExists _userEmailExists;
+        private readonly ITokenGenerator _tokenGenerator;
 
-        public RegisterUserCase(IMapper mapper, PasswordCryptography password, IUnitOfWork unitOfWork, IUserAdd userAdd, IUserEmailExists userEmailExists)
+        public RegisterUserCase(IMapper mapper, PasswordCryptography password, IUnitOfWork unitOfWork, IUserAdd userAdd, IUserEmailExists userEmailExists, ITokenGenerator tokenGenerator)
         {
             _mapper = mapper;
             _password = password;
             _unitOfWork = unitOfWork;
             _userAdd = userAdd;
             _userEmailExists = userEmailExists;
+            _tokenGenerator = tokenGenerator;
         }
 
         public async Task<RegisterUserResponse> Execute(RegisterUserRequest request)
@@ -37,10 +40,12 @@ namespace ProjectAspNet.Application.UseCases.User
 
             var user = _mapper.Map<UserEntitie>(request);
             user.Password = _password.Encrypt(request.Password);
+            user.UserIdentifier = Guid.NewGuid();
+
             await _userAdd.Add(user);
             await _unitOfWork.Commit();
 
-            return new RegisterUserResponse() {Name = request.Name};
+            return new RegisterUserResponse() {Name = request.Name, Token = new TokenResponse() { TokenGenerated = _tokenGenerator.Generate(user.UserIdentifier)} };
         }
 
         public async Task Validate(RegisterUserRequest request)

@@ -13,6 +13,8 @@ using Microsoft.Extensions.Configuration;
 using FluentMigrator.Runner;
 using System.Reflection;
 using ProjectAspNet.Infrastructure.Extensions;
+using ProjectAspNet.Domain.Repositories.Security.Tokens;
+using ProjectAspNet.Infrastructure.Security.Tokens;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -21,6 +23,7 @@ namespace ProjectAspNet.Infrastructure
         public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             AddRepositoriesDbContext(services);
+            AddJwtToken(services, configuration);
             if (configuration.InMemoryEnviroment())
                 return;
             AddDbContext(services, configuration);
@@ -31,6 +34,13 @@ namespace ProjectAspNet.Infrastructure
         {
             var connection = configuration.GetConnectionString("sqlserverconnection");
             service.AddDbContext<ProjectAspNetDbContext>(DbContextOptions => DbContextOptions.UseSqlServer(connection));
+        }
+
+        public static void AddJwtToken(this IServiceCollection services, IConfiguration configuration)
+        {
+            var expirateTime = configuration.GetValue<uint>("Token:Expiratetime");
+            var signKey = configuration.GetValue<string>("Token:Signkey");
+            services.AddScoped<ITokenGenerator>(opt => new GenerateToken(expirateTime, signKey!));
         }
 
         public static void AddRepositoriesDbContext(IServiceCollection service)

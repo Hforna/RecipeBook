@@ -15,7 +15,8 @@ namespace ProjectAspNet.Infrastructure.Migrations.Versions
             CreateTable("users")
                 .WithColumn("Name").AsString(255).NotNullable()
                 .WithColumn("Email").AsString(255).NotNullable()
-                .WithColumn("Password").AsString(2000).NotNullable();
+                .WithColumn("Password").AsString(2000).NotNullable()
+                .WithColumn("UserIdentifier").AsGuid().NotNullable();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace CommonTestUtilities.Repositories
 
         public void Password_Email_Exists(UserEntitie user, bool exists)
         {
-            if (exists)
+            if (!exists)
             {
                 _repository.Setup(rep => rep.LoginByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user = null!);
             }
