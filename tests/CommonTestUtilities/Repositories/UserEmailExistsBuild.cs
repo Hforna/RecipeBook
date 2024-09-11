@@ -16,9 +16,9 @@ namespace CommonTestUtilities.Repositories
 
         public UserEmailExistsBuild() => _repository = new Mock<IUserEmailExists>();
 
-        public void EmailExists(string email)
+        public void EmailExists(string email, bool result)
         {
-            _repository.Setup(rep => rep.EmailExists(email)).ReturnsAsync(true);
+            _repository.Setup(rep => rep.EmailExists(email)).ReturnsAsync(result);
         }
 
         public void Password_Email_Exists(UserEntitie user)
