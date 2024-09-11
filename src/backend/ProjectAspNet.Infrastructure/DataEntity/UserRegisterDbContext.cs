@@ -30,7 +30,7 @@ namespace ProjectAspNet.Infrastructure.DataEntity
 
         public async Task<UserEntitie?> LoginByEmailAndPassword(string email, string password)
         {
-            return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Active && x.Password.Equals(password) && x.Email.Equals(email));
+            return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Password.Equals(password) && x.Email.Equals(email));
         }
     }
 }

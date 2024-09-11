@@ -24,11 +24,6 @@ namespace ProjectAspNet_API.Filters
                     context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
                     context.Result = new UnauthorizedObjectResult(new RegisterUserError(context.Exception.Message));
                 }
-                {
-                    var exception = context.Exception as RegisterProductError;
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Result = new BadRequestObjectResult(new RegisterProductError(exception!.Errors));
-                }
                 if (context.Exception is  RegisterProductError)
                 {
                     var exception = context.Exception as RegisterProductError;
