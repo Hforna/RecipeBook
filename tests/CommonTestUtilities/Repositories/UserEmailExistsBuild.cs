@@ -21,9 +21,16 @@ namespace CommonTestUtilities.Repositories
             _repository.Setup(rep => rep.EmailExists(email)).ReturnsAsync(result);
         }
 
-        public void Password_Email_Exists(UserEntitie user)
+        public void Password_Email_Exists(UserEntitie user, bool exists)
         {
-            _repository.Setup(rep => rep.LoginByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user);
+            if (exists)
+            {
+                _repository.Setup(rep => rep.LoginByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user = null!);
+            }
+            else
+            {
+                _repository.Setup(rep => rep.LoginByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user);
+            }
         }
 
         public IUserEmailExists Build() => _repository.Object;

@@ -33,10 +33,9 @@ namespace UseCases
         {
             var request = RegisterUserRequestBuilder.Create();
             var useCase = CreateUseCase(request, true);
-            //var result = await useCase.Execute(request);
+            var result = useCase.Execute(request);
 
-            await Assert.ThrowsAsync<RegisterUserError>(() => useCase.Execute(request));
-            
+            await Assert.ThrowsAsync<RegisterUserError>(() => useCase.Execute(request));           
         }
 
         public RegisterUserCase CreateUseCase(RegisterUserRequest request, bool emailResult)

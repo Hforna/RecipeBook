@@ -13,14 +13,14 @@ namespace CommonTestUtilities.Entities
 {
     public class UserEntitieTest
     {
-        public static (UserEntitie , string) Build()
+        public static (UserEntitie user, string password) Build()
         {
             var password = new Faker().Internet.Password();
             var user =  new Faker<UserEntitie>()
                 .RuleFor(x => x.Id, (f) => 1)
                 .RuleFor(x => x.Name, (f) => f.Person.FirstName)
                 .RuleFor(x => x.Email, (f) => f.Internet.Email())
-                .RuleFor(x => x.Password, (f) => new PasswordCryptography("asd").Encrypt(password));
+                .RuleFor(x => x.Password, (f) => CryptographyBuild.Build().Encrypt(password));
 
             return (user, password);
         }
