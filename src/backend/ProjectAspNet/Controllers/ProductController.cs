@@ -6,8 +6,6 @@ using ProjectAspNet.Controllers.BaseController;
 
 namespace ProjectAspNet.Controllers
 {
-    [Route("products")]
-    [ApiController]
     public class ProductController : BaseControllerProject
     {
         [HttpPost]

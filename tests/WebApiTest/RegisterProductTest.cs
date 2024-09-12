@@ -23,7 +23,7 @@ namespace WebApiTest
         public async Task Success()
         {
             var request = RegisterProductRequestBuilder.Create();
-            var response = await _httpClient.PostAsJsonAsync("products", request);
+            var response = await _httpClient.PostAsJsonAsync("product", request);
             await using var readStream = await response.Content.ReadAsStreamAsync();
             var contentResponse = await JsonDocument.ParseAsync(readStream);
             contentResponse.RootElement.GetProperty("productName").ToString().Should().Be(request.ProductName);
@@ -41,7 +41,7 @@ namespace WebApiTest
 
             _httpClient.DefaultRequestHeaders.Add("Accepted-Language", cultureLanguage);
 
-            var response = await _httpClient.PostAsJsonAsync("products", request);
+            var response = await _httpClient.PostAsJsonAsync("product", request);
 
             await using var readStream = await response.Content.ReadAsStreamAsync();
             var toJsonResponse = await JsonDocument.ParseAsync(readStream);

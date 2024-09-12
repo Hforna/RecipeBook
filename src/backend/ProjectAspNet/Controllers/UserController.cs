@@ -8,11 +8,8 @@ using ProjectAspNet.Controllers.BaseController;
 
 namespace ProjectAspNet.Controllers
 {
-    [Route("users")]
-    [ApiController]
     public class UserController : BaseControllerProject
     {
-        [UserAuthentication]
         [HttpPost]
         [ProducesResponseType(typeof(RegisterUserResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> Register([FromBody] RegisterUserRequest request, [FromServices] IUserCase userCase)
@@ -20,6 +17,16 @@ namespace ProjectAspNet.Controllers
             var result = await userCase.Execute(request);
 
             return Created(string.Empty, result);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ResponseUserProfile), StatusCodes.Status200OK)]
+        [UserAuthentication]
+        public async Task<IActionResult> GetProfile([FromServices] IGetProfileUseCase userCase)
+        {
+            var result = await userCase.Execute();
+
+            return Ok(result);
         }
     }
 }

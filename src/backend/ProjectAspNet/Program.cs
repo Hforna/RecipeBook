@@ -5,6 +5,8 @@ using ProjectAspNet.Infrastructure.Migrations;
 using ProjectAspNet_API.Filters;
 using ProjectAspNet.Converters;
 using Microsoft.OpenApi.Models;
+using ProjectAspNet.Domain.Repositories.Security.Tokens;
+using ProjectAspNet.Token;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,8 +49,10 @@ builder.Services.AddMvc(opt => opt.Filters.Add(typeof(FilterExceptions)));
 
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<ITokenReceptor, TokenRecepetor>();
 
 builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

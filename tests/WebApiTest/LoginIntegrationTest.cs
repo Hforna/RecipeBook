@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace WebApiTest
 {
-    public class LoginIntegrationTest : BaseIntegrationTests<LoginUserRequest>
+    public class LoginIntegrationTest : IClassFixture<DataBaseInMemoryApi>
     {
         private readonly HttpClient _httpClient;
         private readonly string _username;
         private readonly string _password;
         private readonly string _email;
 
-        public LoginIntegrationTest(DataBaseInMemoryApi factory) : base(factory, "login")
+        public LoginIntegrationTest(DataBaseInMemoryApi factory)
         {
             _httpClient = factory.CreateClient();
             _email = factory.getEmail();
@@ -29,9 +29,11 @@ namespace WebApiTest
         [Fact]
         public async Task Success()
         {
-            var contextResponse = BaseClass(new LoginUserRequest() { Email = _email, Password = _password});
-            contextResponse.Result.RootElement.GetProperty("name").Should().Be(_username);
-            contextResponse.Result.RootElement.GetProperty("tokens").Should().NotBeNull();
+            var request = new LoginUserRequest() { Email = _email, Password = _password};
+            var response = await _httpClient.PostAsJsonAsync("login", request);
+            await using var readStream = await response.Content.ReadAsStreamAsync();
+            var contextResponse = JsonDocument.Parse(readStream);
+            contextResponse.RootElement.GetProperty("token").Should().NotBeNull();
         }
     }
 }

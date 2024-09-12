@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using ProjectAspNet.Domain.Repositories.Security.Tokens;
 using ProjectAspNet.Domain.Repositories.Users;
 using ProjectAspNet.Exceptions.Exceptions;
+using ProjectAspNet.Token;
 
 namespace ProjectAspNet.Filters
 {
@@ -11,9 +12,11 @@ namespace ProjectAspNet.Filters
     {
         private readonly ITokenValidator _tokenValidator;
         private readonly IUserIdentifierExists _userIdentifierExists;
+        private readonly ITokenReceptor _tokenReceptor;
 
-        public UserAuthenticationFilter(ITokenValidator tokenValidator, IUserIdentifierExists userIdentifierExists)
+        public UserAuthenticationFilter(ITokenValidator tokenValidator, IUserIdentifierExists userIdentifierExists, ITokenReceptor tokenReceptor)
         {
+            _tokenReceptor = tokenReceptor;
             _tokenValidator = tokenValidator;
             _userIdentifierExists = userIdentifierExists;
         }
@@ -22,7 +25,7 @@ namespace ProjectAspNet.Filters
         {
             try
             {
-                var token = getToken(context);
+                var token = _tokenReceptor.Value();
                 var validator = _tokenValidator.Validate(token);
 
                 var userExists = _userIdentifierExists.UserIdentifierExists(validator);
@@ -41,14 +44,6 @@ namespace ProjectAspNet.Filters
             {
                 context.Result = new UnauthorizedObjectResult(new RegisterUserError(ResourceExceptMessages.USER_DOESNT_EXISTS));
             }
-        }
-
-        private string getToken(AuthorizationFilterContext context)
-        {
-            var token = context.HttpContext.Response.Headers.Authorization.ToString();
-            if (string.IsNullOrEmpty(token))
-                throw new ProjectExceptionBase(ResourceExceptMessages.NAME_EMPTY);
-            return token["Bearer ".Length..].Trim();
         }
     }
 }

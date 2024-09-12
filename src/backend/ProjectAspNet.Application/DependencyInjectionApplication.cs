@@ -24,7 +24,7 @@ namespace ProjectAspNet.Application
 
         public static void AddUserMapper(IServiceCollection service)
         {
-            var mapper = new AutoMapper.MapperConfiguration(x => { x.AddProfile(new UserMappper()); x.AddProfile(new ProductMapper()); }).CreateMapper();
+            var mapper = new AutoMapper.MapperConfiguration(x => { x.AddProfile(new UserMappper()); x.AddProfile(new ProductMapper()); x.AddProfile(new ProfileMapper()); }).CreateMapper();
             service.AddScoped(opt => mapper);
         }
 
@@ -32,6 +32,7 @@ namespace ProjectAspNet.Application
         {
             service.AddScoped<IUserCase, RegisterUserCase>();
             service.AddScoped<ILoginUser, LoginUserCase>();
+            service.AddScoped<IGetProfileUseCase, GetUserProfileUseCase>();
         }
 
         public static void AddRegisterProductCase(IServiceCollection service)

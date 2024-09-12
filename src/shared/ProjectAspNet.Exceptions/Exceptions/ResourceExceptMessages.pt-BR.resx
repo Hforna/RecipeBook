@@ -141,4 +141,7 @@
   <data name="USER_DOESNT_EXISTS" xml:space="preserve">
     <value>O usuario não existe</value>
   </data>
+  <data name="NO_TOKEN" xml:space="preserve">
+    <value>Sem token nos headers</value>
+  </data>
 </root>

@@ -20,7 +20,8 @@ namespace CommonTestUtilities.Entities
                 .RuleFor(x => x.Id, (f) => 1)
                 .RuleFor(x => x.Name, (f) => f.Person.FirstName)
                 .RuleFor(x => x.Email, (f) => f.Internet.Email())
-                .RuleFor(x => x.Password, (f) => CryptographyBuild.Build().Encrypt(password));
+                .RuleFor(x => x.Password, (f) => CryptographyBuild.Build().Encrypt(password))
+                .RuleFor(x => x.UserIdentifier, f => Guid.NewGuid());
 
             return (user, password);
         }

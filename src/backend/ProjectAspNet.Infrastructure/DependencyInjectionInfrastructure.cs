@@ -24,6 +24,7 @@ namespace ProjectAspNet.Infrastructure
         {
             AddRepositoriesDbContext(services);
             AddJwtToken(services, configuration);
+            AddUserLogged(services);
             if (configuration.InMemoryEnviroment())
                 return;
             AddDbContext(services, configuration);
@@ -36,13 +37,15 @@ namespace ProjectAspNet.Infrastructure
             service.AddDbContext<ProjectAspNetDbContext>(DbContextOptions => DbContextOptions.UseSqlServer(connection));
         }
 
-        public static void AddJwtToken(this IServiceCollection services, IConfiguration configuration)
+        public static void AddJwtToken(IServiceCollection services, IConfiguration configuration)
         {
             var expirateTime = configuration.GetValue<uint>("Token:Expiratetime");
             var signKey = configuration.GetValue<string>("Token:Signkey");
             services.AddScoped<ITokenGenerator>(opt => new GenerateToken(expirateTime, signKey!));
             services.AddScoped<ITokenValidator>(opt => new ValidateToken(signKey!));
         }
+
+        public static void AddUserLogged(IServiceCollection services) => services.AddScoped<ILoggedUser, LoggedUser>();
 
         public static void AddRepositoriesDbContext(IServiceCollection service)
         {

@@ -30,7 +30,7 @@ namespace ProjectAspNet.Infrastructure.Security.Tokens
 
             var createToken = tokenHandler.ValidateToken(token, descriptor, out _);
 
-            var tokenValue = createToken.Claims.First(c => c.ValueType == ClaimTypes.Sid).Value;
+            var tokenValue = createToken.Claims.First(c => c.Type == ClaimTypes.Sid).Value;
 
             return Guid.Parse(tokenValue);
         }
