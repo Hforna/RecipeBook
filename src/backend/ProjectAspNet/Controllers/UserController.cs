@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectAspNet.Application.UseCases.User;
+using ProjectAspNet.Attributes;
 using ProjectAspNet.Communication.Requests;
 using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Controllers.BaseController;
@@ -11,6 +12,7 @@ namespace ProjectAspNet.Controllers
     [ApiController]
     public class UserController : BaseControllerProject
     {
+        [UserAuthentication]
         [HttpPost]
         [ProducesResponseType(typeof(RegisterUserResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> Register([FromBody] RegisterUserRequest request, [FromServices] IUserCase userCase)

@@ -22,21 +22,21 @@ namespace ProjectAspNet.Exceptions.Exceptions {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ResourceExceptMessages {
+    internal class ResourceExceptMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public ResourceExceptMessages() {
+        internal ResourceExceptMessages() {
         }
         
         /// <summary>
         ///   Retorna a instância de ResourceManager armazenada em cache usada por essa classe.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ProjectAspNet.Exceptions.Exceptions.ResourceExceptMessages", typeof(ResourceExceptMessages).Assembly);
@@ -51,7 +51,7 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         ///   pesquisas de recursos que usam essa classe de recurso de tipo de alta segurança.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Error in e-mail format.
         /// </summary>
-        public static string EMAIL_FORMAT {
+        internal static string EMAIL_FORMAT {
             get {
                 return ResourceManager.GetString("EMAIL_FORMAT", resourceCulture);
             }
@@ -72,9 +72,18 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a E-mail or password is invalid.
         /// </summary>
-        public static string EMAIL_OR_PASSWORD_INVALID {
+        internal static string EMAIL_OR_PASSWORD_INVALID {
             get {
                 return ResourceManager.GetString("EMAIL_OR_PASSWORD_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Token is expired.
+        /// </summary>
+        internal static string EXPIRED_TOKEN {
+            get {
+                return ResourceManager.GetString("EXPIRED_TOKEN", resourceCulture);
             }
         }
         
@@ -82,7 +91,7 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         ///   Consulta uma cadeia de caracteres localizada semelhante a The price is mery high
         ///.
         /// </summary>
-        public static string HIGH_PRICE {
+        internal static string HIGH_PRICE {
             get {
                 return ResourceManager.GetString("HIGH_PRICE", resourceCulture);
             }
@@ -92,7 +101,7 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         ///   Consulta uma cadeia de caracteres localizada semelhante a The name cannot be empty
         ///.
         /// </summary>
-        public static string NAME_EMPTY {
+        internal static string NAME_EMPTY {
             get {
                 return ResourceManager.GetString("NAME_EMPTY", resourceCulture);
             }
@@ -102,9 +111,27 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         ///   Consulta uma cadeia de caracteres localizada semelhante a Password must have 8 digits or more
         ///.
         /// </summary>
-        public static string PASSWORD_LESS {
+        internal static string PASSWORD_LESS {
             get {
                 return ResourceManager.GetString("PASSWORD_LESS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a User doesn&apos;t exists.
+        /// </summary>
+        internal static string USER_DOESNT_EXISTS {
+            get {
+                return ResourceManager.GetString("USER_DOESNT_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a this user token doesn&apos;t exists.
+        /// </summary>
+        internal static string USER_IDENTIFIER_NOT_EXISTS {
+            get {
+                return ResourceManager.GetString("USER_IDENTIFIER_NOT_EXISTS", resourceCulture);
             }
         }
     }

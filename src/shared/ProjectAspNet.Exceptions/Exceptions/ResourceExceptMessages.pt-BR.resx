@@ -132,4 +132,13 @@
   <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
     <value>E-mail ou senha incorretos</value>
   </data>
+  <data name="USER_IDENTIFIER_NOT_EXISTS" xml:space="preserve">
+    <value>O token desse usuario não existe</value>
+  </data>
+  <data name="EXPIRED_TOKEN" xml:space="preserve">
+    <value>O token está expirado</value>
+  </data>
+  <data name="USER_DOESNT_EXISTS" xml:space="preserve">
+    <value>O usuario não existe</value>
+  </data>
 </root>
