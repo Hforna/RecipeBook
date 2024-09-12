@@ -41,6 +41,7 @@ namespace ProjectAspNet.Infrastructure
             var expirateTime = configuration.GetValue<uint>("Token:Expiratetime");
             var signKey = configuration.GetValue<string>("Token:Signkey");
             services.AddScoped<ITokenGenerator>(opt => new GenerateToken(expirateTime, signKey!));
+            services.AddScoped<ITokenValidator>(opt => new ValidateToken(signKey!));
         }
 
         public static void AddRepositoriesDbContext(IServiceCollection service)
@@ -49,6 +50,7 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<IUserAdd, UserRegisterDbContext>();
             service.AddScoped<IUnitOfWork, UnitOfWork>();
             service.AddScoped<IProductAdd, ProductRegisterDbContext>();
+            service.AddScoped<IUserIdentifierExists, UserRegisterDbContext>();
         }
 
         public static void AddFluentMigratior(IServiceCollection service, IConfiguration configuration)

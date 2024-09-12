@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Infrastructure.DataEntity
 {
-    public class UserRegisterDbContext : IUserAdd, IUserEmailExists
+    public class UserRegisterDbContext : IUserAdd, IUserEmailExists, IUserIdentifierExists
     {
         private ProjectAspNetDbContext _dbContext;
 
@@ -27,6 +27,8 @@ namespace ProjectAspNet.Infrastructure.DataEntity
         {
             return await _dbContext.Users.AnyAsync(x => x.Email.Equals(email));
         }
+
+        public async Task<bool> UserIdentifierExists(Guid uid) => await _dbContext.Users.AnyAsync(x => x.UserIdentifier.Equals(uid) && x.Active);
 
         public async Task<UserEntitie?> LoginByEmailAndPassword(string email, string password)
         {

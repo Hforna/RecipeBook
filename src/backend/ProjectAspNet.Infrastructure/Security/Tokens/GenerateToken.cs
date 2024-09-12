@@ -10,38 +10,32 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Infrastructure.Security.Tokens
 {
-    public class GenerateToken : ITokenGenerator
+    public class GenerateToken : JwtSecurityKeyConverter, ITokenGenerator
     {
-        private uint _minutesExpirate;
-        private string _signKey;
+        private uint _expirateMinutes;
+        private string _signKey = string.Empty;
 
-        public GenerateToken(uint minutesExpirate, string signKey)
+        public GenerateToken(uint expirateMinutes, string signKey)
         {
-            _minutesExpirate = minutesExpirate;
+            _expirateMinutes = expirateMinutes;
             _signKey = signKey;
         }
+
         public string Generate(Guid uid)
         {
-            var claims = new List<Claim> { new Claim(ClaimTypes.Sid, uid.ToString())};
-
+            var claims = new List<Claim> { new Claim(ClaimTypes.Sid, uid.ToString()) };
             var descriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(_minutesExpirate),
-                SigningCredentials = new SigningCredentials(SecurityKeyConverter(), SecurityAlgorithms.HmacSha256Signature)
+                Expires = DateTime.UtcNow.AddMinutes(_expirateMinutes),
+                SigningCredentials = new SigningCredentials(getAsSecurityKey(_signKey), SecurityAlgorithms.HmacSha256Signature)
             };
 
-            var tokenManipulation = new JwtSecurityTokenHandler();
+            var tokenHandler = new JwtSecurityTokenHandler();
 
-            var createToken = tokenManipulation.CreateToken(descriptor);
+            var createToken = tokenHandler.CreateToken(descriptor);
 
-            return tokenManipulation.WriteToken(createToken);
-        }
-        public SecurityKey SecurityKeyConverter()
-        {
-            var toBytes = Encoding.UTF8.GetBytes(_signKey);
-
-            return new SymmetricSecurityKey(toBytes);
+            return tokenHandler.WriteToken(createToken);
         }
     }
 }
