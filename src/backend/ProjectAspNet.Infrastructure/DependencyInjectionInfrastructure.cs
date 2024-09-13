@@ -54,6 +54,8 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<IUnitOfWork, UnitOfWork>();
             service.AddScoped<IProductAdd, ProductRegisterDbContext>();
             service.AddScoped<IUserIdentifierExists, UserRegisterDbContext>();
+            service.AddScoped<IGetUserUpdate, UserRegisterDbContext>();
+            service.AddScoped<IGetUserTracking, UserRegisterDbContext>();
         }
 
         public static void AddFluentMigratior(IServiceCollection service, IConfiguration configuration)

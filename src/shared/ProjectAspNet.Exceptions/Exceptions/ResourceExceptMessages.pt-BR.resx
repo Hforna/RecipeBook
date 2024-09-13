@@ -144,4 +144,7 @@
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Sem token nos headers</value>
   </data>
+  <data name="EMAIL_ALREADY_EXISTS" xml:space="preserve">
+    <value>Este e-mail já existe</value>
+  </data>
 </root>

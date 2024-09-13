@@ -61,6 +61,15 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a This e-mail already exists.
+        /// </summary>
+        public static string EMAIL_ALREADY_EXISTS {
+            get {
+                return ResourceManager.GetString("EMAIL_ALREADY_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Error in e-mail format.
         /// </summary>
         public static string EMAIL_FORMAT {

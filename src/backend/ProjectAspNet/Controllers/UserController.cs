@@ -28,5 +28,15 @@ namespace ProjectAspNet.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [UserAuthentication]
+        public async Task<IActionResult> Update([FromServices] IUpdateUserUseCase useCase, [FromBody] RequestUpdateUser request)
+        {
+            await useCase.Execute(request);
+
+            return NoContent();
+        }
     }
 }

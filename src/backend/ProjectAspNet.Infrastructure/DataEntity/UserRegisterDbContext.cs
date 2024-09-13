@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Infrastructure.DataEntity
 {
-    public class UserRegisterDbContext : IUserAdd, IUserEmailExists, IUserIdentifierExists
+    public class UserRegisterDbContext : IUserAdd, IUserEmailExists, IUserIdentifierExists, IGetUserUpdate, IGetUserTracking
     {
         private ProjectAspNetDbContext _dbContext;
 
@@ -28,11 +28,21 @@ namespace ProjectAspNet.Infrastructure.DataEntity
             return await _dbContext.Users.AnyAsync(x => x.Email.Equals(email));
         }
 
+        public void Update(UserEntitie user)
+        {
+            _dbContext.Users.Update(user);
+        }
+
         public async Task<bool> UserIdentifierExists(Guid uid) => await _dbContext.Users.AnyAsync(x => x.UserIdentifier.Equals(uid) && x.Active);
 
         public async Task<UserEntitie?> LoginByEmailAndPassword(string email, string password)
         {
             return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Password.Equals(password) && x.Email.Equals(email));
+        }
+
+        public async Task<UserEntitie> getUserById(long id)
+        {
+            return await _dbContext.Users.FirstAsync(x => x.Id == id);
         }
     }
 }
