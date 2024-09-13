@@ -29,6 +29,7 @@ namespace ProjectAspNet.Application.UseCases.User
 
         public async Task Execute(RequestUpdateUser request)
         {
+            await Validate(request);
             var loggedUser = await _loggedUser.getUser();
             var user = await _getUserTracking.getUserById(loggedUser.Id);
             user.Name = request.Name;
@@ -42,12 +43,9 @@ namespace ProjectAspNet.Application.UseCases.User
             var validator = new UpdateUserValidate();
             var result = validator.Validate(request);
             var userByToken = await _loggedUser.getUser();
-            if(request.Email != userByToken.Email)
+            if(await _userEmailExists.EmailExists(request.Email))
             {
-                if(await _userEmailExists.EmailExists(request.Email))
-                {
-                    result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceExceptMessages.EMAIL_ALREADY_EXISTS));
-                }
+                result.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, ResourceExceptMessages.EMAIL_ALREADY_EXISTS));
             }
             if(result.IsValid == false)
             {
