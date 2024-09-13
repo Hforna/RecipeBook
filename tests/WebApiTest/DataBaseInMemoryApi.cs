@@ -21,6 +21,7 @@ namespace WebApiTest
         public string getEmail() => _user.Email;
         public string getPassword() => _password;
         public string getUsername() => _user.Name;
+        public Guid getUserIdentifier() => _user.UserIdentifier;
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
