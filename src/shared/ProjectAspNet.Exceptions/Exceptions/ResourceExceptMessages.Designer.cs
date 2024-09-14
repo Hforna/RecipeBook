@@ -127,6 +127,16 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Password cannot be empty
+        ///.
+        /// </summary>
+        public static string PASSWORD_EMPTY {
+            get {
+                return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Password must have 8 digits or more
         ///.
         /// </summary>
@@ -151,6 +161,16 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         public static string USER_IDENTIFIER_NOT_EXISTS {
             get {
                 return ResourceManager.GetString("USER_IDENTIFIER_NOT_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Password is wrong
+        ///.
+        /// </summary>
+        public static string WRONG_PASSWORD {
+            get {
+                return ResourceManager.GetString("WRONG_PASSWORD", resourceCulture);
             }
         }
     }

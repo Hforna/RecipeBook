@@ -15,6 +15,8 @@ using System.Reflection;
 using ProjectAspNet.Infrastructure.Extensions;
 using ProjectAspNet.Domain.Repositories.Security.Tokens;
 using ProjectAspNet.Infrastructure.Security.Tokens;
+using ProjectAspNet.Infrastructure.Security.Cryptography;
+using ProjectAspNet.Domain.Repositories.Security;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -25,6 +27,7 @@ namespace ProjectAspNet.Infrastructure
             AddRepositoriesDbContext(services);
             AddJwtToken(services, configuration);
             AddUserLogged(services);
+            AddCryptography(services, configuration);
             if (configuration.InMemoryEnviroment())
                 return;
             AddDbContext(services, configuration);
@@ -65,6 +68,11 @@ namespace ProjectAspNet.Infrastructure
             {
                 opt.AddSqlServer().WithGlobalConnectionString(connectionString).ScanIn(Assembly.Load("ProjectAspNet.Infrastructure")).For.All();
             });
+        }
+
+        public static void AddCryptography(IServiceCollection service, IConfiguration configuration)
+        {
+            service.AddScoped<ICryptography>(opt => new Sha512Encrypt(configuration.GetSection("settings:application:cryptography").Value!));
         }
     }
 }

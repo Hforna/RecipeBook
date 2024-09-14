@@ -1,20 +1,17 @@
-﻿using System;
+﻿using ProjectAspNet.Domain.Repositories.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectAspNet.Application.Services.Cryptography
+namespace ProjectAspNet.Infrastructure.Security.Cryptography
 {
-    public class PasswordCryptography
+    public class Sha512Encrypt : ICryptography
     {
         private readonly string _keyWord = "asd";
-        public PasswordCryptography(string keyWord) => _keyWord = keyWord;
-
-        public PasswordCryptography()
-        {
-        }
+        public Sha512Encrypt(string keyWord) => _keyWord = keyWord;
 
         public string Encrypt(string password)
         {

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectAspNet.Application.Services.AutoMapper;
-using ProjectAspNet.Application.Services.Cryptography;
 using ProjectAspNet.Application.UseCases.Product;
 using ProjectAspNet.Application.UseCases.User;
 using System;
@@ -18,7 +17,6 @@ namespace ProjectAspNet.Application
         {
             AddUserMapper(services);
             AddRegisterUserCase(services);
-            AddCryptography(services, configuration);
             AddRegisterProductCase(services);
         }
 
@@ -34,16 +32,12 @@ namespace ProjectAspNet.Application
             service.AddScoped<ILoginUser, LoginUserCase>();
             service.AddScoped<IGetProfileUseCase, GetUserProfileUseCase>();
             service.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
+            service.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
         }
 
         public static void AddRegisterProductCase(IServiceCollection service)
         {
             service.AddScoped<IProductCase, ProductUseCase>();
-        }
-
-        public static void AddCryptography(IServiceCollection service, IConfiguration configuration)
-        {
-            service.AddScoped(opt => new PasswordCryptography(configuration.GetSection("settings:application:cryptography").Value!));
         }
     }
 }

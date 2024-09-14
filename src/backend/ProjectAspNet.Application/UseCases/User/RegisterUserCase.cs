@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using ProjectAspNet.Application.Services.Cryptography;
 using ProjectAspNet.Communication.Requests;
 using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Domain.Entities;
 using ProjectAspNet.Domain.Repositories;
+using ProjectAspNet.Domain.Repositories.Security;
 using ProjectAspNet.Domain.Repositories.Security.Tokens;
 using ProjectAspNet.Domain.Repositories.Users;
 using ProjectAspNet.Exceptions.Exceptions;
@@ -18,13 +18,13 @@ namespace ProjectAspNet.Application.UseCases.User
     public class RegisterUserCase : IUserCase
     {
         private readonly IMapper _mapper;
-        private readonly PasswordCryptography _password;
+        private readonly ICryptography _password;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserAdd _userAdd;
         private readonly IUserEmailExists _userEmailExists;
         private readonly ITokenGenerator _tokenGenerator;
 
-        public RegisterUserCase(IMapper mapper, PasswordCryptography password, IUnitOfWork unitOfWork, IUserAdd userAdd, IUserEmailExists userEmailExists, ITokenGenerator tokenGenerator)
+        public RegisterUserCase(IMapper mapper, ICryptography password, IUnitOfWork unitOfWork, IUserAdd userAdd, IUserEmailExists userEmailExists, ITokenGenerator tokenGenerator)
         {
             _mapper = mapper;
             _password = password;

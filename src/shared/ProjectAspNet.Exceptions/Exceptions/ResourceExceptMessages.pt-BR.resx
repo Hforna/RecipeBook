@@ -147,4 +147,10 @@
   <data name="EMAIL_ALREADY_EXISTS" xml:space="preserve">
     <value>Este e-mail já existe</value>
   </data>
+  <data name="WRONG_PASSWORD" xml:space="preserve">
+    <value>A senha está errada</value>
+  </data>
+  <data name="PASSWORD_EMPTY" xml:space="preserve">
+    <value>A senha não pode ser vazia</value>
+  </data>
 </root>
