@@ -1,8 +1,10 @@
 ﻿using Moq;
-using ProjectAspNet.Application.Services.Cryptography;
+using ProjectAspNet.Domain.Repositories.Security;
+using ProjectAspNet.Infrastructure.Security.Cryptography;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,9 +12,9 @@ namespace CommonTestUtilities.Cryptography
 {
     public class CryptographyBuild
     {
-        public static PasswordCryptography Build()
+        public static ICryptography Build()
         {
-            return new PasswordCryptography("ljrbw24=68j/sns");
+            return new Sha512Encrypt("ljrbw24=68j/sns");
         }
     }
 }

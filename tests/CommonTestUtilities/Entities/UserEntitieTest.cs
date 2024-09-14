@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Bogus;
 using CommonTestUtilities.Cryptography;
-using ProjectAspNet.Application.Services.Cryptography;
 using ProjectAspNet.Domain.Entities;
 
 namespace CommonTestUtilities.Entities
