@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectAspNet.Application.UseCases.User
+namespace ProjectAspNet.Application.Validators.User
 {
     public class UserRegisterValidate : AbstractValidator<RegisterUserRequest>
     {

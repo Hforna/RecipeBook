@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ProjectAspNet.Application.UseCases.RepositoriesUseCases.User;
+using ProjectAspNet.Application.Validators.User;
 using ProjectAspNet.Communication.Requests;
 using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Domain.Entities;

@@ -1,4 +1,6 @@
-﻿using ProjectAspNet.Communication.Requests;
+﻿using ProjectAspNet.Application.UseCases.RepositoriesUseCases.User;
+using ProjectAspNet.Application.Validators.User;
+using ProjectAspNet.Communication.Requests;
 using ProjectAspNet.Domain.Entities;
 using ProjectAspNet.Domain.Repositories;
 using ProjectAspNet.Domain.Repositories.Security;

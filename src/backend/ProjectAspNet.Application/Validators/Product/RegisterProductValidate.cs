@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectAspNet.Application.UseCases.Product
+namespace ProjectAspNet.Application.Validators.Product
 {
     public class RegisterProductValidate : AbstractValidator<RegisterProductRequest>
     {

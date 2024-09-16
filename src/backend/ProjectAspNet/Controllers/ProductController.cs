@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjectAspNet.Application.UseCases.Product;
+using ProjectAspNet.Application.UseCases.RepositoriesUseCases.Product;
 using ProjectAspNet.Communication.Requests;
 using ProjectAspNet.Controllers.BaseController;
 

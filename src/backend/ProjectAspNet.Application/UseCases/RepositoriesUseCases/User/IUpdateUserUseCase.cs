@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectAspNet.Application.UseCases.User
+namespace ProjectAspNet.Application.UseCases.RepositoriesUseCases.User
 {
-    public interface IChangePasswordUseCase
+    public interface IUpdateUserUseCase
     {
-        public Task Execute(RequestChangeUserPassword request);
+        public Task Execute(RequestUpdateUser request);
     }
 }

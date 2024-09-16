@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProjectAspNet.Application.UseCases.User;
+using ProjectAspNet.Application.UseCases.RepositoriesUseCases.User;
 using ProjectAspNet.Attributes;
 using ProjectAspNet.Communication.Requests;
 using ProjectAspNet.Communication.Responses;

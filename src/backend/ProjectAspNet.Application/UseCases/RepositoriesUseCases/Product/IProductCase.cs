@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectAspNet.Application.UseCases.Product
+namespace ProjectAspNet.Application.UseCases.RepositoriesUseCases.Product
 {
     public interface IProductCase
     {

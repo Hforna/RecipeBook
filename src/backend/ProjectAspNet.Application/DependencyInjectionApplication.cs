@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using ProjectAspNet.Application.Services.AutoMapper;
 using ProjectAspNet.Application.UseCases.Product;
+using ProjectAspNet.Application.UseCases.RepositoriesUseCases.Product;
+using ProjectAspNet.Application.UseCases.RepositoriesUseCases.User;
 using ProjectAspNet.Application.UseCases.User;
 using System;
 using System.Collections.Generic;

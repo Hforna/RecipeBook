@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ProjectAspNet.Application.UseCases.RepositoriesUseCases.User;
 using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Domain.Repositories.Users;
 using System;
