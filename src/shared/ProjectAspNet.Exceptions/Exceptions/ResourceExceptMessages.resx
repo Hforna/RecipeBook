@@ -159,4 +159,14 @@
     <value>Password cannot be empty
 </value>
   </data>
+  <data name="TITLE_RECIPE_EMPTY" xml:space="preserve">
+    <value>The recipe title cannot be empty
+</value>
+  </data>
+  <data name="TIME_RECIPE_OUT_ENUM" xml:space="preserve">
+    <value>Number select is out of time recipe enum</value>
+  </data>
+  <data name="DIFFICULTY_OUT_ENUM" xml:space="preserve">
+    <value>Number selected is out of difficult enum</value>
+  </data>
 </root>

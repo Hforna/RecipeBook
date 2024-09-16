@@ -153,4 +153,13 @@
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>A senha não pode ser vazia</value>
   </data>
+  <data name="TITLE_RECIPE_EMPTY" xml:space="preserve">
+    <value>O titulo da receita nao pode ser vazio</value>
+  </data>
+  <data name="TIME_RECIPE_OUT_ENUM" xml:space="preserve">
+    <value>Numero selecionado está fora do enum do tempo de receita</value>
+  </data>
+  <data name="DIFFICULTY_OUT_ENUM" xml:space="preserve">
+    <value>Numero selecionado está fora do enum de dificuldade</value>
+  </data>
 </root>
