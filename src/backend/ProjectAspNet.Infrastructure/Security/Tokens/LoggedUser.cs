@@ -29,12 +29,11 @@ namespace ProjectAspNet.Infrastructure.Security.Tokens
             var token = _tokenReceptor.Value();
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var writeToken = tokenHandler.ReadJwtToken(token);
-            var identifier = writeToken.Claims.First(c => c.Type == ClaimTypes.Sid).Value;
-            var userIdentifier = Guid.Parse(identifier);
+            var readToken = tokenHandler.ReadJwtToken(token);
+            var claim = readToken.Claims.First(c => c.Type == ClaimTypes.Sid).Value;
+            var guidToken = Guid.Parse(claim);
 
-            return await _dbContext.Users.AsNoTracking().FirstAsync(user => user.Active && user.UserIdentifier == userIdentifier);
+            return await _dbContext.Users.AsNoTracking().FirstAsync(u => u.UserIdentifier == guidToken);
         }
-
     }
 }

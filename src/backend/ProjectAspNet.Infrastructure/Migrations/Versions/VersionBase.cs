@@ -13,7 +13,7 @@ namespace ProjectAspNet.Infrastructure.Migrations.Versions
         protected ICreateTableColumnOptionOrWithColumnSyntax CreateTable(string table)
         {
             return Create.Table(table)
-                .WithColumn("Id").AsInt64().ForeignKey().Identity()
+                .WithColumn("Id").AsInt64().PrimaryKey().Identity()
                 .WithColumn("CreatedOn").AsDateTime().NotNullable().WithDefaultValue(DateTime.UtcNow)
                 .WithColumn("Active").AsBoolean().NotNullable();
         }
