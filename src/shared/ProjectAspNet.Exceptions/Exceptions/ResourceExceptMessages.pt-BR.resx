@@ -162,4 +162,25 @@
   <data name="DIFFICULTY_OUT_ENUM" xml:space="preserve">
     <value>Numero selecionado está fora do enum de dificuldade</value>
   </data>
+  <data name="LIST_OUT_OF_RANGE" xml:space="preserve">
+    <value>Lista deve ter um ou mais items</value>
+  </data>
+  <data name="DISH_TYPE_OUT_ENUM" xml:space="preserve">
+    <value>O numero no dish type está fora do enum</value>
+  </data>
+  <data name="INGREDIENT_EMPTY" xml:space="preserve">
+    <value>Ingrediente não pode ser vazio</value>
+  </data>
+  <data name="STEP_LESS_1" xml:space="preserve">
+    <value>Numero de passo deve ser maior que 0</value>
+  </data>
+  <data name="TEXT_INSTRUCTION_GREATER_2000" xml:space="preserve">
+    <value>Texto deve conter menos que 2000 letras</value>
+  </data>
+  <data name="TEXT_INSTRUCTION_EMPTY" xml:space="preserve">
+    <value>O texto da instrucão não pode ser vazio</value>
+  </data>
+  <data name="INSTRUCTION_STEPS_EQUALS" xml:space="preserve">
+    <value>Instruções não devem ter o mesmo numero de passos mais de uma vez</value>
+  </data>
 </root>

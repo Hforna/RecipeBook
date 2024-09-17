@@ -169,4 +169,27 @@
   <data name="DIFFICULTY_OUT_ENUM" xml:space="preserve">
     <value>Number selected is out of difficult enum</value>
   </data>
+  <data name="LIST_OUT_OF_RANGE" xml:space="preserve">
+    <value>List must be have 1 or more items</value>
+  </data>
+  <data name="DISH_TYPE_OUT_ENUM" xml:space="preserve">
+    <value>Number in dish type is out of enum</value>
+  </data>
+  <data name="INGREDIENT_EMPTY" xml:space="preserve">
+    <value>Ingredient name cannot be empty</value>
+  </data>
+  <data name="STEP_LESS_1" xml:space="preserve">
+    <value>Step number must be greather than 0</value>
+  </data>
+  <data name="TEXT_INSTRUCTION_GREATER_2000" xml:space="preserve">
+    <value>Text must have less 2000 letters</value>
+  </data>
+  <data name="TEXT_INSTRUCTION_EMPTY" xml:space="preserve">
+    <value>Text instruction cannot be empty
+</value>
+  </data>
+  <data name="INSTRUCTION_STEPS_EQUALS" xml:space="preserve">
+    <value>Instruction can't have steps number equals
+</value>
+  </data>
 </root>

@@ -10,11 +10,11 @@ namespace ProjectAspNet.Domain.Entities.Recipes
     public class RecipeEntitie : BaseEntitie
     {
         public string? Title { get; set; }
-        public CookingTime TimeRecipe { get; set; }
-        public Difficulty Difficulty { get; set; }
-        public IList<InstructionsEntitie> Instructions { get; set; } = new List<InstructionsEntitie>();
+        public CookingTime? TimeRecipe { get; set; }
+        public Difficulty? Difficulty { get; set; }
+        public IList<InstructionsEntitie> Instructions { get; set; } = [];
         public IList<DishTypeEntitie> DishTypes { get; set; } = [];
-        public string Ingredients { get; set; } = string.Empty;
+        public IList<string> Ingredients { get; set; } = [];
         public long UserId { get; set; }
     }
 }
