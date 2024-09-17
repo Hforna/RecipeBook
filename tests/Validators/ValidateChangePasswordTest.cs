@@ -1,6 +1,7 @@
 ﻿using CommonTestUtilities.Request.User;
 using FluentAssertions;
 using ProjectAspNet.Application.UseCases.User;
+using ProjectAspNet.Application.Validators.User;
 using ProjectAspNet.Exceptions.Exceptions;
 using System;
 using System.Collections.Generic;

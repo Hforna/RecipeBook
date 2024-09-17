@@ -1,6 +1,7 @@
 ﻿using CommonTestUtilities.Request.Product;
 using FluentAssertions;
 using ProjectAspNet.Application.UseCases.Product;
+using ProjectAspNet.Application.Validators.Product;
 using ProjectAspNet.Exceptions.Exceptions;
 using System;
 using System.Collections.Generic;
