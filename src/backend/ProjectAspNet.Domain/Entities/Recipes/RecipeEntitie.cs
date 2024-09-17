@@ -14,7 +14,7 @@ namespace ProjectAspNet.Domain.Entities.Recipes
         public Difficulty? Difficulty { get; set; }
         public IList<InstructionsEntitie> Instructions { get; set; } = [];
         public IList<DishTypeEntitie> DishTypes { get; set; } = [];
-        public IList<string> Ingredients { get; set; } = [];
+        public IList<IngredientEntitie> Ingredients { get; set; } = [];
         public long UserId { get; set; }
     }
 }

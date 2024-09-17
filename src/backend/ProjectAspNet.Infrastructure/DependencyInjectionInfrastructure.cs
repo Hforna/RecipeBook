@@ -17,6 +17,7 @@ using ProjectAspNet.Domain.Repositories.Security.Tokens;
 using ProjectAspNet.Infrastructure.Security.Tokens;
 using ProjectAspNet.Infrastructure.Security.Cryptography;
 using ProjectAspNet.Domain.Repositories.Security;
+using ProjectAspNet.Domain.Repositories.Recipe;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -59,6 +60,7 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<IUserIdentifierExists, UserRegisterDbContext>();
             service.AddScoped<IGetUserUpdate, UserRegisterDbContext>();
             service.AddScoped<IGetUserTracking, UserRegisterDbContext>();
+            service.AddScoped<ISaveRecipe, SaveRecipe>();
         }
 
         public static void AddFluentMigratior(IServiceCollection service, IConfiguration configuration)

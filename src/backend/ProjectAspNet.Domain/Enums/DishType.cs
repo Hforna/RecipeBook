@@ -9,7 +9,7 @@ namespace ProjectAspNet.Domain.Enums
     public enum DishType
     {
         BreakFast = 0,
-        Luch = 1,
+        Lunch = 1,
         Appetizers = 2,
         Snack = 3,
         Dessert = 4,

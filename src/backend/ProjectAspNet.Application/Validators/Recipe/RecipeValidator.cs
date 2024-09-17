@@ -18,7 +18,7 @@ namespace ProjectAspNet.Application.Validators.Recipe
             RuleFor(r => r.TimeRecipe).IsInEnum().WithMessage(ResourceExceptMessages.TIME_RECIPE_OUT_ENUM);
             RuleFor(r => r.Ingredients.Count).GreaterThan(0).WithMessage(ResourceExceptMessages.LIST_OUT_OF_RANGE);
             RuleFor(r => r.Instructions.Count).GreaterThan(0).WithMessage(ResourceExceptMessages.LIST_OUT_OF_RANGE);
-            RuleForEach(r => r.DishType).IsInEnum().WithMessage(ResourceExceptMessages.DISH_TYPE_OUT_ENUM);
+            RuleForEach(r => r.DishTypes).IsInEnum().WithMessage(ResourceExceptMessages.DISH_TYPE_OUT_ENUM);
             RuleForEach(r => r.Ingredients).NotEmpty().WithMessage(ResourceExceptMessages.INGREDIENT_EMPTY);
             RuleForEach(r => r.Instructions).ChildRules(c =>
             {
