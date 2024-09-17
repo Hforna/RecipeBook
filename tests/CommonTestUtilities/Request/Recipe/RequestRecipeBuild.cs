@@ -18,7 +18,7 @@ namespace CommonTestUtilities.Request.Recipe
                 .RuleFor(r => r.Title, f => f.Lorem.Word())
                 .RuleFor(r => r.Difficulty, f => f.PickRandom<Difficulty>())
                 .RuleFor(r => r.TimeRecipe, f => f.PickRandom<CookingTime>())
-                .RuleFor(r => r.DishType, f => f.Make(4, () => f.PickRandom<DishType>()))
+                .RuleFor(r => r.DishTypes, f => f.Make(4, () => f.PickRandom<DishType>()))
                 .RuleFor(r => r.Ingredients, f => f.Make(4, () => f.Commerce.ProductName()))
                 .RuleFor(r => r.Instructions, f => f.Make(make_instructions, () => new RequestInstructions()
                 {

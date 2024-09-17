@@ -80,7 +80,7 @@ namespace Validators
         public void Success_Null_DishType()
         {
             var request = RequestRecipeBuild.Build();
-            request.DishType = [];
+            request.DishTypes = [];
 
             var validator = new RecipeValidator();
             var result = validator.Validate(request);

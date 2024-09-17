@@ -13,7 +13,8 @@ namespace CommonTestUtilities.AutoMapperBuilder
     {
         public static IMapper Build()
         {
-            var mapper = new AutoMapper.MapperConfiguration(x => { x.AddProfile(new UserMappper()); x.AddProfile(new ProductMapper()); x.AddProfile(new ProfileMapper()); }).CreateMapper();
+            var sqIds = sqIdsBuilder.Build();
+            var mapper = new AutoMapper.MapperConfiguration(x => { x.AddProfile(new UserMappper()); x.AddProfile(new ProductMapper()); x.AddProfile(new ProfileMapper(sqIds)); }).CreateMapper();
             return mapper;
         }
     }
