@@ -21,10 +21,10 @@ namespace ProjectAspNet.Application.Services.AutoMapper
             _sqidsEncoder = sqIds;
 
             CreateMap<UserEntitie, ResponseUserProfile>();
-            CreateMap<RecipeEntitie, ResponseRecipe>()
+            CreateMap<Recipe, ResponseRecipe>()
                 .ForMember(d => d.Id, f => f.MapFrom(ds => _sqidsEncoder.Encode(ds.Id)));
 
-            CreateMap<RequestRecipe, RecipeEntitie>()
+            CreateMap<RequestRecipe, Recipe>()
                 .ForMember(dest => dest.Ingredients, opt => opt.MapFrom(src => src.Ingredients.Select(i => new IngredientEntitie { Item = i }).ToList()))
                 .ForMember(dest => dest.DishTypes, opt => opt.MapFrom(src => src.DishTypes.Select(d => new DishTypeEntitie { Type = (DishType)d }).ToList()))
                 .ForMember(dest => dest.Instructions, opt => opt.Ignore());
@@ -37,6 +37,10 @@ namespace ProjectAspNet.Application.Services.AutoMapper
                 .ForMember(i => i.Type, opt => opt.MapFrom(source => source));
 
             CreateMap<RequestInstructions, InstructionsEntitie>();
+
+            CreateMap<Recipe, RecipeResponseJson>()
+                .ForMember(d => d.Id, opt => opt.MapFrom(s => _sqidsEncoder.Encode(s.Id)))
+                .ForMember(d => d.AmountIngredients, opt => opt.MapFrom(s => s.Ingredients.Count));
         }
     }
 }

@@ -14,8 +14,8 @@ namespace ProjectAspNet.Infrastructure.Migrations.Versions
         {
             CreateTable("recipes")
                 .WithColumn("Title").AsString().NotNullable()
-                .WithColumn("TimeRecipe").AsInt64().Nullable()
-                .WithColumn("Difficulty").AsInt64().Nullable()
+                .WithColumn("TimeRecipe").AsInt32().Nullable()
+                .WithColumn("Difficulty").AsInt32().Nullable()
                 .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_USER_RECIPE_ID", "users", "Id");
 
             CreateTable("ingredients")

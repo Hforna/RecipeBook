@@ -61,6 +61,7 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<IGetUserUpdate, UserRegisterDbContext>();
             service.AddScoped<IGetUserTracking, UserRegisterDbContext>();
             service.AddScoped<ISaveRecipe, SaveRecipe>();
+            service.AddScoped<IFilterRecipe, SaveRecipe>();
         }
 
         public static void AddFluentMigratior(IServiceCollection service, IConfiguration configuration)

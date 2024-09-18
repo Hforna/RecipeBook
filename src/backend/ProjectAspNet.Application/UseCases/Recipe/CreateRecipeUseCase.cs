@@ -35,7 +35,7 @@ namespace ProjectAspNet.Application.UseCases.Recipe
             var loggedUser = await _loggedUser.getUser();
             Validate(request);
 
-            var recipe = _mapper.Map<RecipeEntitie>(request);
+            var recipe = _mapper.Map<Domain.Entities.Recipes.Recipe>(request);
             recipe.UserId = loggedUser.Id;
 
             var instructions = recipe.Instructions.OrderBy(s => s.Step).ToList();

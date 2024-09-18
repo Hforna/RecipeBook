@@ -19,5 +19,14 @@ namespace ProjectAspNet.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("filters")]
+        [ProducesResponseType(typeof(GetRecipesResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Filter([FromBody] RequestFilterRecipe request, [FromServices] IFilterRecipeUseCase useCase)
+        {
+            var response = await useCase.Execute(request);
+
+            return Ok(response);
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace ProjectAspNet.Infrastructure.DataEntity
 
         public DbSet<UserEntitie> Users { get; set; }
         public DbSet<ProductEntitie> Products { get; set; }
-        public DbSet<RecipeEntitie> Recipes { get; set; }
+        public DbSet<Recipe> Recipes { get; set; }
         public DbSet<DishTypeEntitie> DishType { get; set; }
         public DbSet<IngredientEntitie> Ingredients { get; set; }
         public DbSet<InstructionsEntitie> Instructions { get; set; }

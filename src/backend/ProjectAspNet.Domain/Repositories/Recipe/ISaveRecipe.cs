@@ -9,6 +9,6 @@ namespace ProjectAspNet.Domain.Repositories.Recipe
 {
     public interface ISaveRecipe
     {
-        public Task Add(RecipeEntitie recipe);
+        public Task Add(Entities.Recipes.Recipe recipe);
     }
 }

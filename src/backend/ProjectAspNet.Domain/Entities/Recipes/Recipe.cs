@@ -1,13 +1,15 @@
 ﻿using ProjectAspNet.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectAspNet.Domain.Entities.Recipes
 {
-    public class RecipeEntitie : BaseEntitie
+    [Table("recipes")]
+    public class Recipe : BaseEntitie
     {
         public string? Title { get; set; }
         public CookingTime? TimeRecipe { get; set; }
