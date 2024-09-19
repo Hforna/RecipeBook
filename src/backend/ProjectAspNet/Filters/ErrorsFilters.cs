@@ -30,6 +30,18 @@ namespace ProjectAspNet_API.Filters
                     context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
                     context.Result = new BadRequestObjectResult(new RegisterProductError(exception!.Errors));
                 }
+                if(context.Exception is FilterRecipeException)
+                {
+                    var exception = context.Exception as FilterRecipeException;
+                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    context.Result = new BadRequestObjectResult(new FilterRecipeException(exception!.Errors));
+                }
+                if(context.Exception is CreateRecipeException)
+                {
+                    var exception = context.Exception as CreateRecipeException;
+                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    context.Result = new BadRequestObjectResult(new CreateRecipeException(exception!.Errors));
+                }
             }
             else
             {

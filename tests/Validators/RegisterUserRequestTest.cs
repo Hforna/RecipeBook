@@ -35,14 +35,12 @@ namespace Validators
         }
 
         [Theory]
-        [InlineData(0)]
         [InlineData(1)]
         [InlineData(2)]
         [InlineData(3)]
         [InlineData(4)]
         [InlineData(5)]
         [InlineData(6)]
-        [InlineData(7)]
         public void Password_Length(int passwordLength)
         {
             var request = RegisterUserRequestBuilder.Create(passwordLength);

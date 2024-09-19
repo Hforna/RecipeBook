@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectAspNet.Domain.Entities;
+using ProjectAspNet.Domain.Entities.Recipes;
 using ProjectAspNet.Infrastructure.DataEntity;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,17 @@ namespace WebApiTest
 {
     public class DataBaseInMemoryApi : WebApplicationFactory<Program>
     {
-        private  UserEntitie _user = default!;
-        private  string _password = string.Empty;
+        private UserEntitie _user = default!;
+        private string _password = string.Empty;
+        private Recipe? _recipe;
 
         public string getEmail() => _user.Email;
         public string getPassword() => _password;
         public string getUsername() => _user.Name;
         public Guid getUserIdentifier() => _user.UserIdentifier;
+
+        public string getRecipeName() => _recipe!.Title!;
+        public IList<DishTypeEntitie> getDishType() => _recipe!.DishTypes;
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -44,6 +49,8 @@ namespace WebApiTest
                     var dbContext = scope.ServiceProvider.GetRequiredService<ProjectAspNetDbContext>();
                     dbContext.Database.EnsureDeleted();
                     (_user, _password) = UserEntitieTest.Build();
+                    _recipe = RecipeEntitieTest.Build();
+                    dbContext.Recipes.Add(_recipe);
                     dbContext.Users.Add(_user);
                     dbContext.SaveChanges();
                 });
