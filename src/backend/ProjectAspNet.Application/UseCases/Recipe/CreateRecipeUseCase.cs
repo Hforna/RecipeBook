@@ -38,7 +38,7 @@ namespace ProjectAspNet.Application.UseCases.Recipe
             var recipe = _mapper.Map<Domain.Entities.Recipes.Recipe>(request);
             recipe.UserId = loggedUser.Id;
 
-            var instructions = recipe.Instructions.OrderBy(s => s.Step).ToList();
+            var instructions = request.Instructions.OrderBy(s => s.Step).ToList();
             for(int i = 0; i < instructions.Count; i++)
                 instructions.ElementAt(i).Step = i + 1;
 

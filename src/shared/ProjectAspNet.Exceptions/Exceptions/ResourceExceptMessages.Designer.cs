@@ -163,6 +163,15 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Recipe not found.
+        /// </summary>
+        public static string NO_RECIPE_FOUND {
+            get {
+                return ResourceManager.GetString("NO_RECIPE_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a No token on headers
         ///.
         /// </summary>

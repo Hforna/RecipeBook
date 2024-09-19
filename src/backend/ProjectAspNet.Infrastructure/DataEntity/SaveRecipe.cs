@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Infrastructure.DataEntity
 {
-    public class SaveRecipe : ISaveRecipe, IFilterRecipe
+    public class SaveRecipe : ISaveRecipe, IFilterRecipe, IGetRecipeById
     {
         private readonly ProjectAspNetDbContext _dbContext;
 
@@ -45,6 +45,17 @@ namespace ProjectAspNet.Infrastructure.DataEntity
                 query = query.Where(r => r.DishTypes.Any(d => filter.DishTypes.Contains(d.Type)));
 
             return await query.ToListAsync();
+        }
+
+        public async Task<Recipe?> GetById(UserEntitie user, long recipeId)
+        {
+            return await _dbContext
+                .Recipes
+                .AsNoTracking()
+                .Include(r => r.Ingredients)
+                .Include(r => r.Instructions)
+                .Include(r => r.DishTypes)
+                .FirstOrDefaultAsync(r => r.Active && (long)r.Id == recipeId && (long)r.UserId == (long)user.Id);
         }
     }
 }

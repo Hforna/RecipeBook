@@ -20,21 +20,31 @@ namespace ProjectAspNet.Application
     {
         public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
-            AddUserMapper(services, configuration);
+            AddSqIds(services, configuration);
+            AddUserMapper(services);
             AddRegisterUserCase(services);
             AddRegisterProductCase(services);
         }
 
-        public static void AddUserMapper(IServiceCollection service, IConfiguration configuration)
+        public static void AddUserMapper(IServiceCollection service)
         {
-            var sqIds = new SqidsEncoder<long>(new()
+            service.AddScoped(opt =>
+                new AutoMapper.MapperConfiguration(x => {
+                    var sqIds = opt.GetService<SqidsEncoder<long>>()!;
+                    x.AddProfile(new UserMappper()); x.AddProfile(new ProductMapper()); x.AddProfile(new ProfileMapper(sqIds));
+                }).CreateMapper()
+            );
+        }
+
+        public static void AddSqIds(IServiceCollection services, IConfiguration configuration)
+        {
+            var sqids = new SqidsEncoder<long>(new()
             {
-                MinLength = configuration.GetValue<int>("settings:sqIds:MinLength"),
-                Alphabet = configuration.GetValue<string>("settings:sqIds:Alphabet")!
+                Alphabet = configuration.GetValue<string>("settings:sqIds:Alphabet")!,
+                MinLength = configuration.GetValue<int>("settings:sqIds:MinLegth")
             });
 
-            var mapper = new AutoMapper.MapperConfiguration(x => { x.AddProfile(new UserMappper()); x.AddProfile(new ProductMapper()); x.AddProfile(new ProfileMapper(sqIds));}).CreateMapper();
-            service.AddScoped(opt => mapper);
+            services.AddSingleton(sqids);
         }
 
         public static void AddRegisterUserCase(IServiceCollection service)
@@ -46,6 +56,7 @@ namespace ProjectAspNet.Application
             service.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
             service.AddScoped<ICreateRecipe, CreateRecipeUseCase>();
             service.AddScoped<IFilterRecipeUseCase, FilterRecipeUseCase>();
+            service.AddScoped<IGetRecipeUseCase, GetRecipeUseCase>();
         }
 
         public static void AddRegisterProductCase(IServiceCollection service)

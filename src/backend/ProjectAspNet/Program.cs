@@ -16,6 +16,8 @@ builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOption
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
+    //options.OperationFilter<>();
+
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header using the Bearer scheme.

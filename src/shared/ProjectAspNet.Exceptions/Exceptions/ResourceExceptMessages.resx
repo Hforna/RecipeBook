@@ -192,4 +192,7 @@
     <value>Instruction can't have steps number equals
 </value>
   </data>
+  <data name="NO_RECIPE_FOUND" xml:space="preserve">
+    <value>Recipe not found</value>
+  </data>
 </root>

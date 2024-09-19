@@ -24,13 +24,13 @@ namespace ProjectAspNet.Infrastructure.Migrations.Versions
                 .OnDelete(System.Data.Rule.Cascade);
 
             CreateTable("instructions")
-                .WithColumn("Step").AsInt16().NotNullable()
+                .WithColumn("Step").AsInt32().NotNullable()
                 .WithColumn("Text").AsString(2000).NotNullable()
                 .WithColumn("RecipeId").AsInt64().ForeignKey("FK_RECIPE_INSTRUCTION_ID", "recipes", "Id")
                 .OnDelete(System.Data.Rule.Cascade);
 
             CreateTable("dishtype")
-                .WithColumn("Type").AsInt16().NotNullable()
+                .WithColumn("Type").AsInt32().NotNullable()
                 .WithColumn("RecipeId").AsInt64().ForeignKey("FK_RECIPE_DISHTYPE_ID", "recipes", "Id")
                 .OnDelete(System.Data.Rule.Cascade);
 

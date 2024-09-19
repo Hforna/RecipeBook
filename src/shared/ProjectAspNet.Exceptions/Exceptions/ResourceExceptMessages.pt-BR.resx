@@ -183,4 +183,7 @@
   <data name="INSTRUCTION_STEPS_EQUALS" xml:space="preserve">
     <value>Instruções não devem ter o mesmo numero de passos mais de uma vez</value>
   </data>
+  <data name="NO_RECIPE_FOUND" xml:space="preserve">
+    <value>Receita não encontrada</value>
+  </data>
 </root>
