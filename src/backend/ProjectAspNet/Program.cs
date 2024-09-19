@@ -7,6 +7,7 @@ using ProjectAspNet.Converters;
 using Microsoft.OpenApi.Models;
 using ProjectAspNet.Domain.Repositories.Security.Tokens;
 using ProjectAspNet.Token;
+using ProjectAspNet.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,7 @@ builder.Services.AddControllers().AddJsonOptions(opt => opt.JsonSerializerOption
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    //options.OperationFilter<>();
+    options.OperationFilter<FilterBindId>();
 
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {

@@ -24,7 +24,7 @@ namespace WebApiTest
         public string getPassword() => _password;
         public string getUsername() => _user.Name;
         public Guid getUserIdentifier() => _user.UserIdentifier;
-
+        public long getRecipeId() => _recipe!.Id;
         public string getRecipeName() => _recipe!.Title!;
         public IList<DishTypeEntitie> getDishType() => _recipe!.DishTypes;
 
@@ -50,6 +50,7 @@ namespace WebApiTest
                     dbContext.Database.EnsureDeleted();
                     (_user, _password) = UserEntitieTest.Build();
                     _recipe = RecipeEntitieTest.Build();
+                    _recipe.Id = _user.Id;
                     dbContext.Recipes.Add(_recipe);
                     dbContext.Users.Add(_user);
                     dbContext.SaveChanges();
