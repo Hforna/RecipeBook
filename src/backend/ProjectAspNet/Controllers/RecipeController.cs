@@ -44,7 +44,7 @@ namespace ProjectAspNet.Controllers
 
         [HttpDelete]
         [Route("{Id}")]
-        [ProducesResponseType(typeof(NoContentResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(NoContentResult), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(GetRecipeException), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteRecipe([FromRoute][ModelBinder(typeof(RecipeIdBinder))] long Id, [FromServices] IDeleteRecipe useCase)
         {
