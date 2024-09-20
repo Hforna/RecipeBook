@@ -16,13 +16,13 @@ namespace WebApiTest
 {
     public class DataBaseInMemoryApi : WebApplicationFactory<Program>
     {
-        private UserEntitie _user = default!;
-        private string _password = string.Empty;
-        private Recipe? _recipe;
+        public UserEntitie? _user;
+        public string _password;
+        public Recipe? _recipe;
 
-        public string getEmail() => _user.Email;
         public string getPassword() => _password;
         public string getUsername() => _user.Name;
+        public string getEmail() => _user.Email;
         public Guid getUserIdentifier() => _user.UserIdentifier;
         public long getRecipeId() => _recipe!.Id;
         public string getRecipeName() => _recipe!.Title!;
@@ -48,12 +48,12 @@ namespace WebApiTest
                     using var scope = services.BuildServiceProvider().CreateScope();
                     var dbContext = scope.ServiceProvider.GetRequiredService<ProjectAspNetDbContext>();
                     dbContext.Database.EnsureDeleted();
-                    (_user, _password) = UserEntitieTest.Build();
                     _recipe = RecipeEntitieTest.Build();
+                    (_user, _password) = UserEntitieTest.Build();
+                    dbContext.Users.Add(_user);
                     _recipe.Id = _user.Id;
                     dbContext.Recipes.Add(_recipe);
-                    dbContext.Users.Add(_user);
-                    dbContext.SaveChanges();
+                    dbContext.SaveChangesAsync();
                 });
         }
     }

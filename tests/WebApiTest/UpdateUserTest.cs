@@ -18,20 +18,25 @@ namespace WebApiTest
     public class UpdateUserTest : IClassFixture<DataBaseInMemoryApi>
     {
         private readonly HttpClient _httpClient;
-        private readonly DataBaseInMemoryApi _factory;
+        private readonly string _getEmail;
+        private readonly string _username;
+        private readonly string _password;
+        private readonly Guid _userIdentifier;
         public UpdateUserTest(DataBaseInMemoryApi factory)
         {
-            _factory = factory;
             _httpClient = factory.CreateClient();
+            _getEmail = factory.getEmail();
+            _username = factory.getUsername();
+            _password = factory.getPassword();
+            _userIdentifier = factory.getUserIdentifier();
         }
 
         [Fact]
         public async Task Success()
         {
             var generate = JwtTokenGenerate.Build();
-            var user = UserEntitieTest.Build();
-            var request = new RequestUpdateUser() { Name = user.user.Name, Email = user.user.Email };
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", generate.Generate(_factory.getUserIdentifier()));
+            var request = new RequestUpdateUser() { Name = "asdasd", Email = "henriqueere@gmai.com" };
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", generate.Generate(_userIdentifier));
             var response = await _httpClient.PutAsJsonAsync("user", request);
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
@@ -40,11 +45,10 @@ namespace WebApiTest
         public async Task Error_Email_Exists()
         {
             var generate = JwtTokenGenerate.Build();
-            var user = UserEntitieTest.Build();
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", generate.Generate(_factory.getUserIdentifier()));
-            var request = new RequestUpdateUser() { Name = user.user.Name, Email = _factory.getEmail() };
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", generate.Generate(_userIdentifier));
+            var request = new RequestUpdateUser() { Name = "asdasd", Email = "henriqueere@gmai.com" };
             var response = await _httpClient.PutAsJsonAsync("user", request);
-            var readAsStream = response.Content.ReadAsStream();
+            await using var readAsStream = await response.Content.ReadAsStreamAsync();
             var responseContent = JsonDocument.Parse(readAsStream);
             var listErrors = responseContent.RootElement.GetProperty("errors").EnumerateArray();
             var errors = listErrors.Select(e => e.GetString()).ToList();

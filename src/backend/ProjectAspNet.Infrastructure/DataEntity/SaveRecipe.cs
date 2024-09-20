@@ -4,6 +4,7 @@ using ProjectAspNet.Domain.Entities;
 using ProjectAspNet.Domain.Entities.Recipes;
 using ProjectAspNet.Domain.Enums;
 using ProjectAspNet.Domain.Repositories.Recipe;
+using ProjectAspNet.Domain.Repositories.Recipes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Infrastructure.DataEntity
 {
-    public class SaveRecipe : ISaveRecipe, IFilterRecipe, IGetRecipeById
+    public class SaveRecipe : ISaveRecipe, IFilterRecipe, IGetRecipeById, IDeleteRecipeById
     {
         private readonly ProjectAspNetDbContext _dbContext;
 
@@ -56,6 +57,13 @@ namespace ProjectAspNet.Infrastructure.DataEntity
                 .Include(r => r.Instructions)
                 .Include(r => r.DishTypes)
                 .FirstOrDefaultAsync(r => r.Active && (long)r.Id == recipeId && (long)r.UserId == (long)user.Id);
+        }
+
+        public async Task DeleteById(long recipeId)
+        {
+            var recipe = await _dbContext.Recipes.FirstOrDefaultAsync(d => d.Id == recipeId);
+
+            _dbContext .Recipes.Remove(recipe!);
         }
     }
 }

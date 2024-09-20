@@ -1,6 +1,7 @@
 ﻿using CommonTestUtilities.AutoMapperBuilder;
 using CommonTestUtilities.Repositories;
 using FluentAssertions;
+using ProjectAspNet.Exceptions.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,19 @@ namespace WebApiTest
             var readResponse = await response.Content.ReadAsStreamAsync();
             var responseContent = JsonDocument.Parse(readResponse);
             responseContent.RootElement.GetProperty("title").GetString().Should().Be(_recipeName);
+        }
+        
+        [Fact]
+        public async Task Error_No_Recipe()
+        {
+            var generateToken = JwtTokenGenerate.Build();
+            var sqlIds = sqIdsBuilder.Build();
+            var idEncode = sqlIds.Encode(211);
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", generateToken.Generate(_getUserIdentifier));
+            var response = await _httpClient.GetAsync($"recipe/{idEncode}");
+            var readResponse = await response.Content.ReadAsStreamAsync();
+            var responseContent = JsonDocument.Parse(readResponse);
+            responseContent.RootElement.GetProperty("errors").EnumerateArray().Should().ContainSingle(ResourceExceptMessages.NO_RECIPE_FOUND);
         }
     }
 }

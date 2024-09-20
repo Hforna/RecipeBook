@@ -8,7 +8,7 @@ namespace ProjectAspNet.Exceptions.Exceptions
 {
     public class GetRecipeException : ProjectExceptionBase
     {
-        public IList<string> Errors = new List<string>();
+        public IList<string> Errors { get; set; } = new List<string>();
         public GetRecipeException(string message) : base(message) => Errors.Add(message);
 
         public GetRecipeException(IList<string> errors) : base(string.Empty)

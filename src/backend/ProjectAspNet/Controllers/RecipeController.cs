@@ -6,6 +6,7 @@ using ProjectAspNet.Binders;
 using ProjectAspNet.Communication.Requests;
 using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Controllers.BaseController;
+using ProjectAspNet.Exceptions.Exceptions;
 
 namespace ProjectAspNet.Controllers
 {
@@ -33,11 +34,23 @@ namespace ProjectAspNet.Controllers
         [HttpGet]
         [Route("{Id}")]
         [ProducesResponseType(typeof(ResponeGetRecipe), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetRecipeException), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetRecipe([FromRoute] [ModelBinder(typeof(RecipeIdBinder))] long Id, [FromServices] IGetRecipeUseCase useCase)
         {
             var result = await useCase.Execute(Id);
 
             return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("{Id}")]
+        [ProducesResponseType(typeof(NoContentResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetRecipeException), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteRecipe([FromRoute][ModelBinder(typeof(RecipeIdBinder))] long Id, [FromServices] IDeleteRecipe useCase)
+        {
+            await useCase.Execute(Id);
+
+            return NoContent();
         }
     }
 }

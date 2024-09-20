@@ -18,6 +18,7 @@ using ProjectAspNet.Infrastructure.Security.Tokens;
 using ProjectAspNet.Infrastructure.Security.Cryptography;
 using ProjectAspNet.Domain.Repositories.Security;
 using ProjectAspNet.Domain.Repositories.Recipe;
+using ProjectAspNet.Domain.Repositories.Recipes;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -63,6 +64,7 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<ISaveRecipe, SaveRecipe>();
             service.AddScoped<IFilterRecipe, SaveRecipe>();
             service.AddScoped<IGetRecipeById, SaveRecipe>();
+            service.AddScoped<IDeleteRecipeById, SaveRecipe>();
         }
 
         public static void AddFluentMigratior(IServiceCollection service, IConfiguration configuration)
