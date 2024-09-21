@@ -90,7 +90,7 @@ namespace ProjectAspNet.Infrastructure.DataEntity
                 .Include(d => d.Ingredients)
                 .Where(e => e.Active && e.UserId == user.Id)
                 .OrderByDescending(e => e.CreatedOn)
-                .Take(1)
+                .Take(5)
                 .ToListAsync();
         }
     }
