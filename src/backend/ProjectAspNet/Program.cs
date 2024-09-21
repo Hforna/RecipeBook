@@ -48,6 +48,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
 builder.Services.AddMvc(opt => opt.Filters.Add(typeof(FilterExceptions)));
 
 builder.Services.AddApplication(builder.Configuration);
