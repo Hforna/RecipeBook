@@ -63,5 +63,17 @@ namespace ProjectAspNet.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("dashboard")]
+        [ProducesResponseType(typeof(GetRecipesResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Dashboard([FromServices] IRecipeDashboardUseCase useCase)
+        {
+            var result = await useCase.Execute();
+
+            if(result.Recipe.Any() == false)
+                return NoContent();
+
+            return Ok(result);
+        }
     }
 }

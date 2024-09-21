@@ -9,7 +9,7 @@ namespace ProjectAspNet.Domain.Entities
     public class BaseEntitie
     {
         public long Id { get; set; }
-        public DateTime CreatedOn = DateTime.UtcNow;
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
         public bool Active { get; set; } = true;
     }
 }

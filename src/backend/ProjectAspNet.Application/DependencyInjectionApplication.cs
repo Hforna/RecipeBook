@@ -59,6 +59,7 @@ namespace ProjectAspNet.Application
             service.AddScoped<IGetRecipeUseCase, GetRecipeUseCase>();
             service.AddScoped<IDeleteRecipe, DeleteRecipeUseCase>();
             service.AddScoped<IUpdateRecipeUseCase, UpdateRecipeUseCase>();
+            service.AddScoped<IRecipeDashboardUseCase, RecipeDashboardUseCase>();
         }
 
         public static void AddRegisterProductCase(IServiceCollection service)

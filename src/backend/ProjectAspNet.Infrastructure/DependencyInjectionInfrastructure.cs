@@ -66,6 +66,7 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<IGetRecipeById, SaveRecipe>();
             service.AddScoped<IDeleteRecipeById, SaveRecipe>();
             service.AddScoped<IUpdateRecipe, SaveRecipe>();
+            service.AddScoped<IGetDashboardRecipe, SaveRecipe>();
         }
 
         public static void AddFluentMigratior(IServiceCollection service, IConfiguration configuration)

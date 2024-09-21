@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Infrastructure.DataEntity
 {
-    public class SaveRecipe : ISaveRecipe, IFilterRecipe, IGetRecipeById, IDeleteRecipeById, IUpdateRecipe
+    public class SaveRecipe : ISaveRecipe, IFilterRecipe, IGetRecipeById, IDeleteRecipeById, IUpdateRecipe, IGetDashboardRecipe
     {
         private readonly ProjectAspNetDbContext _dbContext;
 
@@ -59,7 +59,7 @@ namespace ProjectAspNet.Infrastructure.DataEntity
         {
             var recipe = await _dbContext.Recipes.FirstOrDefaultAsync(d => d.Id == recipeId);
 
-            _dbContext .Recipes.Remove(recipe!);
+            _dbContext.Recipes.Remove(recipe!);
         }
 
         public void Update(Recipe recipe)
@@ -80,6 +80,18 @@ namespace ProjectAspNet.Infrastructure.DataEntity
                 .Include(r => r.Ingredients)
                 .Include(r => r.Instructions)
                 .Include(r => r.DishTypes);
+        }
+
+        public async Task<IList<Recipe>> GetDashboardRecipe(UserEntitie user)
+        {
+            return await _dbContext
+                .Recipes
+                .AsNoTracking()
+                .Include(d => d.Ingredients)
+                .Where(e => e.Active && e.UserId == user.Id)
+                .OrderByDescending(e => e.CreatedOn)
+                .Take(1)
+                .ToListAsync();
         }
     }
 }
