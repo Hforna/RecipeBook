@@ -39,7 +39,7 @@ namespace ProjectAspNet.Controllers
             return NoContent();
         }
 
-        [HttpPut("change-password")]
+        [HttpPatch("change-password")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [UserAuthentication]
         public async Task<IActionResult> ChangePassword([FromBody] RequestChangeUserPassword request, [FromServices] IChangePasswordUseCase useCase)

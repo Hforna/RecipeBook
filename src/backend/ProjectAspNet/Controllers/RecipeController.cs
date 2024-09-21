@@ -35,7 +35,7 @@ namespace ProjectAspNet.Controllers
         [Route("{Id}")]
         [ProducesResponseType(typeof(ResponeGetRecipe), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GetRecipeException), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetRecipe([FromRoute] [ModelBinder(typeof(RecipeIdBinder))] long Id, [FromServices] IGetRecipeUseCase useCase)
+        public async Task<IActionResult> Get([FromRoute] [ModelBinder(typeof(RecipeIdBinder))] long Id, [FromServices] IGetRecipeUseCase useCase)
         {
             var result = await useCase.Execute(Id);
 
@@ -46,9 +46,20 @@ namespace ProjectAspNet.Controllers
         [Route("{Id}")]
         [ProducesResponseType(typeof(NoContentResult), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(GetRecipeException), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteRecipe([FromRoute][ModelBinder(typeof(RecipeIdBinder))] long Id, [FromServices] IDeleteRecipe useCase)
+        public async Task<IActionResult> Delete([FromRoute][ModelBinder(typeof(RecipeIdBinder))] long Id, [FromServices] IDeleteRecipe useCase)
         {
             await useCase.Execute(Id);
+
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(NoContentResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetRecipeException), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Update([FromRoute][ModelBinder(typeof(RecipeIdBinder))] long id, [FromServices] IUpdateRecipeUseCase useCase, [FromBody] RequestRecipe request)
+        {
+            await useCase.Execute(id, request);
 
             return NoContent();
         }
