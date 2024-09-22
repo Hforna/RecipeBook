@@ -38,7 +38,7 @@ namespace ProjectAspNet.Filters
             }
             catch (ProjectExceptionBase ex)
             {
-                context.Result = new UnauthorizedObjectResult(new ProjectExceptionBase(ex.Message));
+                context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(ex.Message));
             }
             catch
             {

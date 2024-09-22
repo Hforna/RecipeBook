@@ -10,44 +10,10 @@ namespace ProjectAspNet_API.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception is ProjectExceptionBase)
+            if (context.Exception is ProjectExceptionBase projectExceptionBase)
             {
-                if (context.Exception is RegisterUserError)
-                {
-                    var exception = context.Exception as RegisterUserError;
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Result = new BadRequestObjectResult(new RegisterUserError(exception!.Errors));
-                }
-
-                if (context.Exception is LoginUserException)
-                {
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    context.Result = new UnauthorizedObjectResult(new RegisterUserError(context.Exception.Message));
-                }
-                if (context.Exception is  RegisterProductError)
-                {
-                    var exception = context.Exception as RegisterProductError;
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Result = new BadRequestObjectResult(new RegisterProductError(exception!.Errors));
-                }
-                if(context.Exception is FilterRecipeException)
-                {
-                    var exception = context.Exception as FilterRecipeException;
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Result = new BadRequestObjectResult(new FilterRecipeException(exception!.Errors));
-                }
-                if(context.Exception is CreateRecipeException)
-                {
-                    var exception = context.Exception as CreateRecipeException;
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Result = new BadRequestObjectResult(new CreateRecipeException(exception!.Errors));
-                }
-                if(context.Exception is GetRecipeException)
-                {
-                    var exception = context.Exception as GetRecipeException;
-                    context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    context.Result = new BadRequestObjectResult(new GetRecipeException(exception!.Errors));
-                }
+                context.HttpContext.Response.StatusCode = (int)projectExceptionBase.GetStatusCode();
+                context.Result = new BadRequestObjectResult(new ResponseErrorJson(context.Exception.Message));
             }
             else
             {

@@ -16,7 +16,7 @@ namespace ProjectAspNet.Token
         {
             var token = _httpContext.HttpContext!.Request.Headers.Authorization.ToString();
             if(string.IsNullOrEmpty(token))
-                throw new ProjectExceptionBase(ResourceExceptMessages.NO_TOKEN);
+                throw new ResponseErrorJson(ResourceExceptMessages.NO_TOKEN);
             return token["Bearer ".Length..].Trim();
         }
     }
