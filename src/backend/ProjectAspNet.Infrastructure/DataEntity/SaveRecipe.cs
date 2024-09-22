@@ -50,14 +50,14 @@ namespace ProjectAspNet.Infrastructure.DataEntity
 
         async Task<Recipe?> IGetRecipeById.GetById(UserEntitie user, long recipeId)
         {
-            return await GetRecipe(user, recipeId)
+            return await GetRecipe()
                 .AsNoTracking()
                 .FirstOrDefaultAsync(r => r.Active && (long)r.Id == recipeId && (long)r.UserId == (long)user.Id);
         }
 
-        public async Task DeleteById(long recipeId)
+        public async Task DeleteById(long id)
         {
-            var recipe = await _dbContext.Recipes.FirstOrDefaultAsync(d => d.Id == recipeId);
+            var recipe = await _dbContext.Recipes.FirstOrDefaultAsync(d => d.Id == id);
 
             _dbContext.Recipes.Remove(recipe!);
         }
@@ -69,11 +69,11 @@ namespace ProjectAspNet.Infrastructure.DataEntity
 
         async Task<Recipe?> IUpdateRecipe.GetById(UserEntitie user, long id)
         {
-            return await GetRecipe(user, id)
+            return await GetRecipe()
                 .FirstOrDefaultAsync(r => r.Id == id && r.UserId == user.Id);
         }
 
-        private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Recipe, IList<DishTypeEntitie>> GetRecipe(UserEntitie user, long recipeId)
+        private Microsoft.EntityFrameworkCore.Query.IIncludableQueryable<Recipe, IList<DishTypeEntitie>> GetRecipe()
         {
             return _dbContext
                 .Recipes

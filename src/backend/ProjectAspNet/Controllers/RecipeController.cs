@@ -35,7 +35,7 @@ namespace ProjectAspNet.Controllers
         [Route("{Id}")]
         [ProducesResponseType(typeof(ResponeGetRecipe), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(GetRecipeException), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Get([FromRoute] [ModelBinder(typeof(RecipeIdBinder))] long Id, [FromServices] IGetRecipeUseCase useCase)
+        public async Task<IActionResult> Get([FromRoute][ModelBinder(typeof(RecipeIdBinder))] long Id, [FromServices] IGetRecipeUseCase useCase)
         {
             var result = await useCase.Execute(Id);
 

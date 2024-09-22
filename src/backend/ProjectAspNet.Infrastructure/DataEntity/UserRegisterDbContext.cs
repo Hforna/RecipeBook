@@ -11,7 +11,7 @@ namespace ProjectAspNet.Infrastructure.DataEntity
 {
     public class UserRegisterDbContext : IUserAdd, IUserEmailExists, IUserIdentifierExists, IGetUserUpdate, IGetUserTracking
     {
-        private ProjectAspNetDbContext _dbContext;
+        private readonly ProjectAspNetDbContext _dbContext;
 
         public UserRegisterDbContext(ProjectAspNetDbContext dbContext)
         {

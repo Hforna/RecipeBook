@@ -12,8 +12,8 @@ namespace ProjectAspNet.Infrastructure.Security.Tokens
 {
     public class GenerateToken : JwtSecurityKeyConverter, ITokenGenerator
     {
-        private uint _minutesExpirate;
-        private string _signKey;
+        private readonly uint _minutesExpirate;
+        private readonly string _signKey;
 
         public GenerateToken(uint minutesExpirate, string signKey)
         {

@@ -9,7 +9,7 @@ namespace ProjectAspNet.Exceptions.Exceptions
 {
     public abstract class ProjectExceptionBase : SystemException
     {
-        public ProjectExceptionBase(string message) : base(message) { }
+        protected ProjectExceptionBase(string message) : base(message) { }
 
         public abstract IList<string> GetErrorMessages();
         public abstract HttpStatusCode GetStatusCode();
