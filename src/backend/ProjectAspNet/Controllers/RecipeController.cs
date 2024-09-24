@@ -75,5 +75,15 @@ namespace ProjectAspNet.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("generate")]
+        [ProducesResponseType(typeof(ResponseGenerateRecipe), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RecipeGenerateException), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Generate([FromBody] RequestGenerateRecipe request, [FromServices] IGenerateRecipeUseCase useCase)
+        {
+            var result = await useCase.Execute(request);
+
+            return Ok(result);
+        }
     }
 }

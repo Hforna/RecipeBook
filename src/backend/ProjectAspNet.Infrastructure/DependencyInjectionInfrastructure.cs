@@ -19,6 +19,9 @@ using ProjectAspNet.Infrastructure.Security.Cryptography;
 using ProjectAspNet.Domain.Repositories.Security;
 using ProjectAspNet.Domain.Repositories.Recipe;
 using ProjectAspNet.Domain.Repositories.Recipes;
+using OpenAI_API;
+using ProjectAspNet.Domain.Repositories.OpenAi;
+using ProjectAspNet.Infrastructure.OpenAi;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -30,6 +33,7 @@ namespace ProjectAspNet.Infrastructure
             AddJwtToken(services, configuration);
             AddUserLogged(services);
             AddCryptography(services, configuration);
+            AddOpenAi(services, configuration);
             if (configuration.InMemoryEnviroment())
                 return;
             AddDbContext(services, configuration);
@@ -67,6 +71,14 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<IDeleteRecipeById, SaveRecipe>();
             service.AddScoped<IUpdateRecipe, SaveRecipe>();
             service.AddScoped<IGetDashboardRecipe, SaveRecipe>();
+        }
+
+        public static void AddOpenAi(IServiceCollection services, IConfiguration configuration)
+        {
+            var openAiApi = configuration.GetValue<string>("settings:OpenAi:ApiKey");
+            var api = new APIAuthentication(openAiApi);
+            services.AddScoped<IOpenAIAPI>(d => new OpenAIAPI(api));
+            services.AddScoped<IGenerateRecipeAi, GenerateRecipeService>();
         }
 
         public static void AddFluentMigratior(IServiceCollection service, IConfiguration configuration)
