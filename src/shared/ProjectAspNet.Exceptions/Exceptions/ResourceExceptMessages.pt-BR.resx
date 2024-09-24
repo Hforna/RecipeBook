@@ -186,4 +186,13 @@
   <data name="NO_RECIPE_FOUND" xml:space="preserve">
     <value>Receita não encontrada</value>
   </data>
+  <data name="INGREDIENTS_GENERATE_GREATER" xml:space="preserve">
+    <value>Deve conter apenas 5 ingredientes</value>
+  </data>
+  <data name="INGREDIENTS_EQUAL" xml:space="preserve">
+    <value>Ingredientes não podem ser iguais</value>
+  </data>
+  <data name="INGREDIENTS_GENERATE_PATTERN" xml:space="preserve">
+    <value>Padrão de ingredientes errado</value>
+  </data>
 </root>

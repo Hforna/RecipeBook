@@ -195,4 +195,15 @@
   <data name="NO_RECIPE_FOUND" xml:space="preserve">
     <value>Recipe not found</value>
   </data>
+  <data name="INGREDIENTS_GENERATE_GREATER" xml:space="preserve">
+    <value>Must have only 5 ingredients
+</value>
+  </data>
+  <data name="INGREDIENTS_EQUAL" xml:space="preserve">
+    <value>Ingredients cannot be equals</value>
+  </data>
+  <data name="INGREDIENTS_GENERATE_PATTERN" xml:space="preserve">
+    <value>Ingredients pattern wrong
+</value>
+  </data>
 </root>

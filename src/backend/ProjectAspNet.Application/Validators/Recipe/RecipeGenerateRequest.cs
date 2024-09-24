@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using ProjectAspNet.Communication.Requests;
+using ProjectAspNet.Exceptions.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace ProjectAspNet.Application.Validators.Recipe
     {
         public RecipeGenerateRequest()
         {
-            RuleFor(d => d.Ingredients.Count).InclusiveBetween(1, 5);
-            RuleFor(d => d.Ingredients).Must(d => d.Count == d.Distinct().Count());
+            RuleFor(d => d.Ingredients.Count).InclusiveBetween(1, 5).WithMessage(ResourceExceptMessages.INGREDIENTS_GENERATE_GREATER);
+            RuleFor(d => d.Ingredients).Must(d => d.Count == d.Distinct().Count()).WithMessage(ResourceExceptMessages.INGREDIENTS_EQUAL);
             RuleFor(d => d.Ingredients).ForEach(d =>
             {
                 d.Custom((value, context) =>
@@ -26,7 +27,7 @@ namespace ProjectAspNet.Application.Validators.Recipe
 
                     if(value.Count(c => c == ' ') > 3 || value.Count(c => c == '/') > 1)
                     {
-                        context.AddFailure(string.Empty);
+                        context.AddFailure(string.Empty, ResourceExceptMessages.INGREDIENTS_GENERATE_PATTERN);
                         return;
                     }
                 });

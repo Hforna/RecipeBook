@@ -31,7 +31,7 @@ namespace ProjectAspNet.Application.UseCases.Recipe
                 CookingTime = (CookingTime)response.CookingTime,
                 Difficulty = Communication.Requests.Enums.Difficulty.Easy,
                 Ingredients = response.Ingredients,
-                Instructions = (IList<ResponseInstructionsGeneratedJson>)response.Instructions
+                Instructions = response.Instructions
             };
         }
 

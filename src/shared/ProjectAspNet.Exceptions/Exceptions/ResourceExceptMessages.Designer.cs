@@ -134,6 +134,35 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ingredients cannot be equals.
+        /// </summary>
+        public static string INGREDIENTS_EQUAL {
+            get {
+                return ResourceManager.GetString("INGREDIENTS_EQUAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Must have only 5 ingredients
+        ///.
+        /// </summary>
+        public static string INGREDIENTS_GENERATE_GREATER {
+            get {
+                return ResourceManager.GetString("INGREDIENTS_GENERATE_GREATER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ingredients pattern wrong
+        ///.
+        /// </summary>
+        public static string INGREDIENTS_GENERATE_PATTERN {
+            get {
+                return ResourceManager.GetString("INGREDIENTS_GENERATE_PATTERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Instruction can&apos;t have steps number equals
         ///.
         /// </summary>
