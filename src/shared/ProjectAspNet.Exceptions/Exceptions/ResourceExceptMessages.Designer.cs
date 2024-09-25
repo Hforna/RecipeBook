@@ -115,6 +115,15 @@ namespace ProjectAspNet.Exceptions.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a File format must be png, jpg or jpeg.
+        /// </summary>
+        public static string FORMAT_IMAGE_WRONG {
+            get {
+                return ResourceManager.GetString("FORMAT_IMAGE_WRONG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The price is mery high
         ///.
         /// </summary>

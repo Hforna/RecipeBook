@@ -37,7 +37,7 @@ namespace WebApiTest
             var request = ChangePasswordRequestBuilder.Build();
             request.Password = _password;
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", generate);
-            var response = await _httpClient.PutAsJsonAsync("user/change-password", request);
+            var response = await _httpClient.PatchAsJsonAsync("user/change-password", request);
             response.StatusCode.Should().Be(HttpStatusCode.NoContent);
         }
     }

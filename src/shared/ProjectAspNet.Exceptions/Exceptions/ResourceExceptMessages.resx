@@ -206,4 +206,7 @@
     <value>Ingredients pattern wrong
 </value>
   </data>
+  <data name="FORMAT_IMAGE_WRONG" xml:space="preserve">
+    <value>File format must be png, jpg or jpeg</value>
+  </data>
 </root>

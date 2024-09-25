@@ -45,10 +45,10 @@ namespace WebApiTest
         public async Task Error_Email_Exists()
         {
             var generate = JwtTokenGenerate.Build();
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", generate.Generate(_userIdentifier));
             var request = new RequestUpdateUser() { Name = "asdasd", Email = "henriqueere@gmai.com" };
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", generate.Generate(_userIdentifier));
             var response = await _httpClient.PutAsJsonAsync("user", request);
-            await using var readAsStream = await response.Content.ReadAsStreamAsync();
+            var readAsStream = await response.Content.ReadAsStreamAsync();
             var responseContent = JsonDocument.Parse(readAsStream);
             var listErrors = responseContent.RootElement.GetProperty("errors").EnumerateArray();
             var errors = listErrors.Select(e => e.GetString()).ToList();

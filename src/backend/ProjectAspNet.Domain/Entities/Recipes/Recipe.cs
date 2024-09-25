@@ -17,6 +17,7 @@ namespace ProjectAspNet.Domain.Entities.Recipes
         public IList<InstructionsEntitie> Instructions { get; set; } = [];
         public IList<DishTypeEntitie> DishTypes { get; set; } = [];
         public IList<IngredientEntitie> Ingredients { get; set; } = [];
+        public string? ImageIdentifier { get; set; }
         public long UserId { get; set; }
     }
 }

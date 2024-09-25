@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using ProjectAspNet.Application.UseCases.Repositories.Recipe;
 using ProjectAspNet.Attributes;
@@ -84,6 +85,17 @@ namespace ProjectAspNet.Controllers
             var result = await useCase.Execute(request);
 
             return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("image/{id}")]
+        [ProducesResponseType(typeof(NoContentResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BadRequestResult), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateImage([FromRoute][ModelBinder(typeof(RecipeIdBinder))] long id, IFormFile file, [FromServices] IUpdateImageRecipe useCase)
+        {
+            await useCase.Execute(file, id);
+
+            return NoContent();
         }
     }
 }

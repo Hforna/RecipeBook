@@ -195,4 +195,7 @@
   <data name="INGREDIENTS_GENERATE_PATTERN" xml:space="preserve">
     <value>Padrão de ingredientes errado</value>
   </data>
+  <data name="FORMAT_IMAGE_WRONG" xml:space="preserve">
+    <value>Formato de arquivo deve ser png, jpg ou jpeg</value>
+  </data>
 </root>
