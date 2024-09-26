@@ -22,6 +22,8 @@ using ProjectAspNet.Domain.Repositories.Recipes;
 using OpenAI_API;
 using ProjectAspNet.Domain.Repositories.OpenAi;
 using ProjectAspNet.Infrastructure.OpenAi;
+using ProjectAspNet.Domain.Repositories.Storage;
+using ProjectAspNet.Infrastructure.Storage;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -34,6 +36,7 @@ namespace ProjectAspNet.Infrastructure
             AddUserLogged(services);
             AddCryptography(services, configuration);
             AddOpenAi(services, configuration);
+            AddAzureStorage(services, configuration);
             if (configuration.InMemoryEnviroment())
                 return;
             AddDbContext(services, configuration);
@@ -93,6 +96,12 @@ namespace ProjectAspNet.Infrastructure
         public static void AddCryptography(IServiceCollection service, IConfiguration configuration)
         {
             service.AddScoped<ICryptography>(opt => new Sha512Encrypt(configuration.GetSection("settings:application:cryptography").Value!));
+        }
+
+        private static void AddAzureStorage(IServiceCollection service, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetValue<string>("settings:blobStorage:azure");
+            service.AddScoped<IAzureStorageService>(d => new AzureStorageService(new Azure.Storage.Blobs.BlobServiceClient(connectionString)));
         }
     }
 }
