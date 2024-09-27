@@ -19,6 +19,15 @@ namespace ProjectAspNet.Infrastructure.Storage
             _blobClient = blobClient;
         }
 
+        public async Task Delete(UserEntitie user, string fileName)
+        {
+            var container = _blobClient.GetBlobContainerClient(user.UserIdentifier.ToString());
+            var exists = await container.ExistsAsync();
+
+            if(exists.Value)
+                await container.DeleteBlobIfExistsAsync(fileName);
+        }
+
         public async Task<string> GetFileUrl(UserEntitie user, string fileName)
         {
             var container = _blobClient.GetBlobContainerClient(user.UserIdentifier.ToString());
@@ -54,7 +63,7 @@ namespace ProjectAspNet.Infrastructure.Storage
             await container.CreateIfNotExistsAsync();
 
             var blobClient = container.GetBlobClient(fileName);
-            await  blobClient.UploadAsync(file, overwrite: true);
+            await blobClient.UploadAsync(file, overwrite: true);
         }
     }
 }

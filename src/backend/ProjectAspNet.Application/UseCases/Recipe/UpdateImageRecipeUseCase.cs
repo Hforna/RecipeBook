@@ -45,7 +45,7 @@ namespace ProjectAspNet.Application.UseCases.Recipe
 
             var readFile = file.OpenReadStream();
 
-            if (readFile.Is<JointPhotographicExpertsGroup>() == false || readFile.Is<PortableNetworkGraphic>() == false)
+            if (readFile.Is<JointPhotographicExpertsGroup>() == false && readFile.Is<PortableNetworkGraphic>() == false)
                 throw new GetRecipeException(ResourceExceptMessages.FORMAT_IMAGE_WRONG);
 
             readFile.Position = 0;

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using FileTypeChecker.Extensions;
+using FileTypeChecker.Types;
 using ProjectAspNet.Application.UseCases.Repositories.Recipe;
 using ProjectAspNet.Application.Validators.Recipe;
 using ProjectAspNet.Communication.Requests;
@@ -6,6 +8,7 @@ using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Domain.Entities.Recipes;
 using ProjectAspNet.Domain.Repositories;
 using ProjectAspNet.Domain.Repositories.Recipe;
+using ProjectAspNet.Domain.Repositories.Storage;
 using ProjectAspNet.Domain.Repositories.Users;
 using ProjectAspNet.Exceptions.Exceptions;
 using System;
@@ -22,15 +25,18 @@ namespace ProjectAspNet.Application.UseCases.Recipe
         private readonly IUnitOfWork _unitOfWork;
         private readonly ISaveRecipe _saveRecipe;
         private readonly ILoggedUser _loggedUser;
+        private readonly IAzureStorageService _storageService;
 
-        public CreateRecipeUseCase(IMapper mapper, IUnitOfWork unitOfWork, ISaveRecipe saveRecipe, ILoggedUser loggedUser)
+        public CreateRecipeUseCase(IMapper mapper, IUnitOfWork unitOfWork, ISaveRecipe saveRecipe, ILoggedUser loggedUser, IAzureStorageService storageService)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _saveRecipe = saveRecipe;
             _loggedUser = loggedUser;
+            _storageService = storageService;
         }
-        public async Task<ResponseRecipe> Execute(RequestRecipe request)
+
+        public async Task<ResponseRecipe> Execute(RequestRecipeImage request)
         {
             var loggedUser = await _loggedUser.getUser();
             Validate(request);
@@ -43,6 +49,21 @@ namespace ProjectAspNet.Application.UseCases.Recipe
                 instructions.ElementAt(i).Step = i + 1;
 
             recipe.Instructions = _mapper.Map<IList<InstructionsEntitie>>(instructions);
+
+
+            if(request.Image is not null)
+            {
+                var fileRead = request.Image!.OpenReadStream();
+
+                if (fileRead.Is<JointPhotographicExpertsGroup>() == false && fileRead.Is<PortableNetworkGraphic>() == false)
+                    throw new GetRecipeException(ResourceExceptMessages.FORMAT_IMAGE_WRONG);
+
+                recipe.ImageIdentifier = $"{Guid.NewGuid()}{Path.GetExtension(request.Image.FileName)}";
+
+                fileRead.Position = 0;
+
+                await _storageService.Upload(loggedUser, fileRead, recipe.ImageIdentifier);
+            }
 
             await _saveRecipe.Add(recipe);
             await _unitOfWork.Commit();

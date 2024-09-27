@@ -12,5 +12,7 @@ namespace ProjectAspNet.Domain.Repositories.Storage
         public Task Upload(UserEntitie user, Stream file, string fileName);
 
         public Task<string> GetFileUrl(UserEntitie user, string fileName);
+
+        public Task Delete(UserEntitie user, string fileName);
     }
 }

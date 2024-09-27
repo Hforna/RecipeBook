@@ -10,6 +10,6 @@ namespace ProjectAspNet.Application.UseCases.Repositories.Recipe
 {
     public interface ICreateRecipe
     {
-        public Task<ResponseRecipe> Execute(RequestRecipe request);
+        public Task<ResponseRecipe> Execute(RequestRecipeImage request);
     }
 }
