@@ -17,5 +17,6 @@ namespace ProjectAspNet.Communication.Responses
         public IList<ResponseInstructions> Instructions { get; set; } = [];
         public IList<DishType> DishTypes { get; set; } = [];
         public IList<IngredientsResponse> Ingredients { get; set; } = [];
+        public string? ImageUrl { get; set; }
     }
 }

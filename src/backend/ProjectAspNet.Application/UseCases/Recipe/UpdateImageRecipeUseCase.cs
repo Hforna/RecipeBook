@@ -37,6 +37,7 @@ namespace ProjectAspNet.Application.UseCases.Recipe
         public async Task Execute(IFormFile file, long id)
         {
             var user = await _loggedUser.getUser();
+
             var recipe = await _recipeById.GetById(user, id);
 
             if (recipe is null)
@@ -44,18 +45,15 @@ namespace ProjectAspNet.Application.UseCases.Recipe
 
             var readFile = file.OpenReadStream();
 
-            if (readFile.Is<JointPhotographicExpertsGroup>() == false && readFile.Is<PortableNetworkGraphic>() == false)
-                throw new CreateRecipeException(ResourceExceptMessages.FORMAT_IMAGE_WRONG);
-
-            if(string.IsNullOrEmpty(recipe.ImageIdentifier))
-            {
-                recipe.ImageIdentifier = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-
-                _updateRecipe.Update(recipe);
-                await _unitOfWork.Commit();
-            }
+            if (readFile.Is<JointPhotographicExpertsGroup>() == false || readFile.Is<PortableNetworkGraphic>() == false)
+                throw new GetRecipeException(ResourceExceptMessages.FORMAT_IMAGE_WRONG);
 
             readFile.Position = 0;
+
+            recipe.ImageIdentifier = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+
+            _updateRecipe.Update(recipe);
+            await _unitOfWork.Commit();
 
             await _storageService.Upload(user, readFile, recipe.ImageIdentifier);
         }

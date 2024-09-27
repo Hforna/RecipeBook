@@ -10,5 +10,7 @@ namespace ProjectAspNet.Domain.Repositories.Storage
     public interface IAzureStorageService
     {
         public Task Upload(UserEntitie user, Stream file, string fileName);
+
+        public Task<string> GetFileUrl(UserEntitie user, string fileName);
     }
 }
