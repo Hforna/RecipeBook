@@ -6,6 +6,7 @@ using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Domain.DTOs;
 using ProjectAspNet.Domain.Enums;
 using ProjectAspNet.Domain.Repositories.Recipe;
+using ProjectAspNet.Domain.Repositories.Storage;
 using ProjectAspNet.Domain.Repositories.Users;
 using ProjectAspNet.Exceptions.Exceptions;
 using System;
@@ -21,12 +22,14 @@ namespace ProjectAspNet.Application.UseCases.Recipe
         private readonly ILoggedUser _loggedUser;
         private readonly IFilterRecipe _filter;
         private readonly IMapper _mapper;
+        private readonly IAzureStorageService _storageService;
 
-        public FilterRecipeUseCase(ILoggedUser loggedUser, IFilterRecipe filter, IMapper mapper)
+        public FilterRecipeUseCase(ILoggedUser loggedUser, IFilterRecipe filter, IMapper mapper, IAzureStorageService storageService)
         {
             _loggedUser = loggedUser;
             _filter = filter;
             _mapper = mapper;
+            _storageService = storageService;
         }
 
 
@@ -48,7 +51,7 @@ namespace ProjectAspNet.Application.UseCases.Recipe
 
             return new GetRecipesResponse()
             {
-                Recipe = _mapper.Map<IList<RecipeResponseJson>>(recipes)
+                Recipe = await MapperListRecipes.GetRecipe(user, recipes, _storageService, _mapper)
             };
         }
 

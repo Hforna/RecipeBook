@@ -40,7 +40,8 @@ namespace ProjectAspNet.Application.Services.AutoMapper
 
             CreateMap<Recipe, RecipeResponseJson>()
                 .ForMember(d => d.Id, opt => opt.MapFrom(s => _sqidsEncoder.Encode(s.Id)))
-                .ForMember(d => d.AmountIngredients, opt => opt.MapFrom(s => s.Ingredients.Count));
+                .ForMember(d => d.AmountIngredients, opt => opt.MapFrom(s => s.Ingredients.Count))
+                .ForMember(d => d.ImageUrl, opt => opt.Ignore());
 
             CreateMap<Recipe, ResponeGetRecipe>()
                 .ForMember(d => d.Id, opt => opt.MapFrom(s => _sqidsEncoder.Encode(s.Id)))

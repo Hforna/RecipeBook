@@ -1,6 +1,7 @@
 ﻿using FileTypeChecker.Extensions;
 using FileTypeChecker.Types;
 using Microsoft.AspNetCore.Http;
+using ProjectAspNet.Application.Extensions;
 using ProjectAspNet.Application.UseCases.Repositories.Recipe;
 using ProjectAspNet.Domain.Repositories;
 using ProjectAspNet.Domain.Repositories.Recipe;
@@ -45,12 +46,12 @@ namespace ProjectAspNet.Application.UseCases.Recipe
 
             var readFile = file.OpenReadStream();
 
-            if (readFile.Is<JointPhotographicExpertsGroup>() == false && readFile.Is<PortableNetworkGraphic>() == false)
-                throw new GetRecipeException(ResourceExceptMessages.FORMAT_IMAGE_WRONG);
+            var (isImage, extension) = (readFile.GetImageVerificationAndExtension().isImage, readFile.GetImageVerificationAndExtension().extension);
 
-            readFile.Position = 0;
+            if (isImage == false)
+                throw new CreateRecipeException(ResourceExceptMessages.FORMAT_IMAGE_WRONG);
 
-            recipe.ImageIdentifier = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            recipe.ImageIdentifier = $"{Guid.NewGuid()}{extension}";
 
             _updateRecipe.Update(recipe);
             await _unitOfWork.Commit();

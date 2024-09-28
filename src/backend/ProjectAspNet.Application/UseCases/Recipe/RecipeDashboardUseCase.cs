@@ -2,6 +2,7 @@
 using ProjectAspNet.Application.UseCases.Repositories.Recipe;
 using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Domain.Repositories.Recipes;
+using ProjectAspNet.Domain.Repositories.Storage;
 using ProjectAspNet.Domain.Repositories.Users;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,14 @@ namespace ProjectAspNet.Application.UseCases.Recipe
         private readonly ILoggedUser _loggedUser;
         private readonly IMapper _mapper;
         private readonly IGetDashboardRecipe _getRecipes;
+        private readonly IAzureStorageService _storageService;
 
-        public RecipeDashboardUseCase(ILoggedUser loggedUser, IMapper mapper, IGetDashboardRecipe getRecipes)
+        public RecipeDashboardUseCase(ILoggedUser loggedUser, IMapper mapper, IGetDashboardRecipe getRecipes, IAzureStorageService storageService)
         {
             _loggedUser = loggedUser;
             _mapper = mapper;
             _getRecipes = getRecipes;
+            _storageService = storageService;
         }
 
         public async Task<GetRecipesResponse> Execute()
@@ -32,7 +35,7 @@ namespace ProjectAspNet.Application.UseCases.Recipe
 
             return new GetRecipesResponse()
             {
-                Recipe = _mapper.Map<IList<RecipeResponseJson>>(recipes)
+                Recipe = await MapperListRecipes.GetRecipe(user, recipes, _storageService, _mapper)
             };
         }
     }

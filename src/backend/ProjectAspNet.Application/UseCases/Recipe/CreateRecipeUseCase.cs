@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FileTypeChecker.Extensions;
 using FileTypeChecker.Types;
+using ProjectAspNet.Application.Extensions;
 using ProjectAspNet.Application.UseCases.Repositories.Recipe;
 using ProjectAspNet.Application.Validators.Recipe;
 using ProjectAspNet.Communication.Requests;
@@ -55,12 +56,12 @@ namespace ProjectAspNet.Application.UseCases.Recipe
             {
                 var fileRead = request.Image!.OpenReadStream();
 
-                if (fileRead.Is<JointPhotographicExpertsGroup>() == false && fileRead.Is<PortableNetworkGraphic>() == false)
-                    throw new GetRecipeException(ResourceExceptMessages.FORMAT_IMAGE_WRONG);
+                var (isImage, extension) = fileRead.GetImageVerificationAndExtension();
 
-                recipe.ImageIdentifier = $"{Guid.NewGuid()}{Path.GetExtension(request.Image.FileName)}";
+                if (isImage == false)
+                    throw new CreateRecipeException(ResourceExceptMessages.FORMAT_IMAGE_WRONG);
 
-                fileRead.Position = 0;
+                recipe.ImageIdentifier = $"{Guid.NewGuid()}{extension}";
 
                 await _storageService.Upload(loggedUser, fileRead, recipe.ImageIdentifier);
             }

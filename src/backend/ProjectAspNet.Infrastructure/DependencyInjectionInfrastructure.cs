@@ -91,6 +91,8 @@ namespace ProjectAspNet.Infrastructure
             {
                 opt.AddSqlServer().WithGlobalConnectionString(connectionString).ScanIn(Assembly.Load("ProjectAspNet.Infrastructure")).For.All();
             });
+
+            service.AddScoped<FluentMigrator.Runner.Processors.ProcessorOptions>();
         }
 
         public static void AddCryptography(IServiceCollection service, IConfiguration configuration)
