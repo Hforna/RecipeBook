@@ -4,6 +4,7 @@ using ProjectAspNet.Application.Services.AutoMapper;
 using ProjectAspNet.Application.UseCases.Product;
 using ProjectAspNet.Application.UseCases.Recipe;
 using ProjectAspNet.Application.UseCases.Repositories.Recipe;
+using ProjectAspNet.Application.UseCases.Repositories.User;
 using ProjectAspNet.Application.UseCases.RepositoriesUseCases.Product;
 using ProjectAspNet.Application.UseCases.RepositoriesUseCases.User;
 using ProjectAspNet.Application.UseCases.User;
@@ -62,6 +63,8 @@ namespace ProjectAspNet.Application
             service.AddScoped<IRecipeDashboardUseCase, RecipeDashboardUseCase>();
             service.AddScoped<IGenerateRecipeUseCase, GenerateRecipeUseCase>();
             service.AddScoped<IUpdateImageRecipe,  UpdateImageRecipeUseCase>();
+            service.AddScoped<IRequesteDeleteUserUseCase, RequestDeleteUserUseCase>();
+            service.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
         }
 
         public static void AddRegisterProductCase(IServiceCollection service)

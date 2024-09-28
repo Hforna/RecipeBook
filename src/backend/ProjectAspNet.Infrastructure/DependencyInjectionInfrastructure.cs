@@ -24,6 +24,9 @@ using ProjectAspNet.Domain.Repositories.OpenAi;
 using ProjectAspNet.Infrastructure.OpenAi;
 using ProjectAspNet.Domain.Repositories.Storage;
 using ProjectAspNet.Infrastructure.Storage;
+using Azure.Messaging.ServiceBus;
+using ProjectAspNet.Domain.Repositories.ServiceBus;
+using ProjectAspNet.Infrastructure.ServiceBus;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -102,6 +105,27 @@ namespace ProjectAspNet.Infrastructure
         {
             var connectionString = configuration.GetValue<string>("settings:blobStorage:azure");
             service.AddScoped<IAzureStorageService>(d => new AzureStorageService(new Azure.Storage.Blobs.BlobServiceClient(connectionString)));
+        }
+
+        private static void AddServiceBus(IServiceCollection service, IConfiguration configuration)
+        {
+            var clientConnection = configuration.GetValue<string>("serviceBus:azure");
+
+            var client = new ServiceBusClient(clientConnection, new ServiceBusClientOptions
+            {
+                TransportType = ServiceBusTransportType.AmqpWebSockets
+            });
+
+            var deleteSender = new DeleteUserSender(client.CreateSender("user"));
+
+            service.AddScoped<IDeleteUserSender>(opt => deleteSender);
+
+            var processor = new DeleteUserProcessor(client.CreateProcessor("user", new ServiceBusProcessorOptions()
+            {
+                MaxConcurrentCalls = 1
+            }));
+
+            service.AddSingleton(processor);
         }
     }
 }

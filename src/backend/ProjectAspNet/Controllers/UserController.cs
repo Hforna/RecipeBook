@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using ProjectAspNet.Application.UseCases.Repositories.User;
 using ProjectAspNet.Application.UseCases.RepositoriesUseCases.User;
 using ProjectAspNet.Attributes;
 using ProjectAspNet.Communication.Requests;
@@ -45,6 +47,15 @@ namespace ProjectAspNet.Controllers
         public async Task<IActionResult> ChangePassword([FromBody] RequestChangeUserPassword request, [FromServices] IChangePasswordUseCase useCase)
         {
             await useCase.Execute(request);
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [UserAuthentication]
+        public async Task<IActionResult> DeleteAccount([FromServices] IRequesteDeleteUserUseCase useCase)
+        {
+            await useCase.Execute();
+
             return NoContent();
         }
     }

@@ -8,6 +8,8 @@ using Microsoft.OpenApi.Models;
 using ProjectAspNet.Domain.Repositories.Security.Tokens;
 using ProjectAspNet.Token;
 using ProjectAspNet.Filters;
+using ProjectAspNet.Infrastructure.ServiceBus;
+using ProjectAspNet.BackgroundServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +59,8 @@ builder.Services.AddScoped<ITokenReceptor, TokenRecepetor>();
 
 builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddHostedService<DeleteUserService>();
 
 var app = builder.Build();
 
