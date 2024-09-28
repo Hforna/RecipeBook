@@ -16,7 +16,7 @@ namespace ProjectAspNet.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRecipe), StatusCodes.Status201Created)]
-        public async Task<IActionResult> Create([FromForm] RequestRecipeImage request, ICreateRecipe useCase)
+        public async Task<IActionResult> Create([FromForm] RequestRecipeImage request, [FromServices] ICreateRecipe useCase)
         {
             var result = await useCase.Execute(request);
 
