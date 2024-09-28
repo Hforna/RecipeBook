@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Infrastructure.DataEntity
 {
-    public class UserRegisterDbContext : IUserAdd, IUserEmailExists, IUserIdentifierExists, IGetUserUpdate, IGetUserTracking
+    public class UserRegisterDbContext : IUserAdd, IUserEmailExists, IUserIdentifierExists, IGetUserUpdate, IGetUserTracking, IDeleteUser
     {
         private readonly ProjectAspNetDbContext _dbContext;
 
@@ -43,6 +43,19 @@ namespace ProjectAspNet.Infrastructure.DataEntity
         public async Task<UserEntitie> getUserById(long id)
         {
             return await _dbContext.Users.FirstAsync(x => x.Id == id);
+        }
+
+        public async Task Delete(Guid uid)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserIdentifier == uid);
+            if (user is null)
+                return;
+
+            var userRecipes = _dbContext.Recipes.Where(r => r.UserId == user.Id);
+
+            _dbContext.Recipes.RemoveRange(userRecipes);
+
+            _dbContext.Users.Remove(user);
         }
     }
 }

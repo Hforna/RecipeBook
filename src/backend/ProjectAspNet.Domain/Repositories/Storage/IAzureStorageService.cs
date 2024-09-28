@@ -14,5 +14,7 @@ namespace ProjectAspNet.Domain.Repositories.Storage
         public Task<string> GetFileUrl(UserEntitie user, string fileName);
 
         public Task Delete(UserEntitie user, string fileName);
+
+        public Task DeleteUser(Guid uid);
     }
 }

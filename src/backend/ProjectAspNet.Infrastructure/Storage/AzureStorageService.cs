@@ -65,5 +65,11 @@ namespace ProjectAspNet.Infrastructure.Storage
             var blobClient = container.GetBlobClient(fileName);
             await blobClient.UploadAsync(file, overwrite: true);
         }
+
+        public async Task DeleteUser(Guid uid)
+        {
+            var container = _blobClient.GetBlobContainerClient(uid.ToString());
+            await container.DeleteIfExistsAsync();
+        }
     }
 }
