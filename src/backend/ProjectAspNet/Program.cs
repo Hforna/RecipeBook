@@ -11,6 +11,7 @@ using ProjectAspNet.Filters;
 using FluentMigrator.Runner;
 using ProjectAspNet.Infrastructure.ServiceBus;
 using ProjectAspNet.BackgroundServices;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,6 +65,8 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddHostedService<DeleteUserService>();
 
+AddGoogleAuthentication();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -83,6 +86,22 @@ var dd = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
 if (builder.Configuration.InMemoryEnviroment() == false)
     DatabaseMigration.Migrate(builder.Configuration.GetConnectionString("sqlserverconnection")!, dd.ServiceProvider);
+
+void AddGoogleAuthentication()
+{
+    var clientId = builder.Configuration.GetValue<string>("settings:google:ClientId")!;
+    var clientSecret = builder.Configuration.GetValue<string>("settings:google:ClientSecret")!;
+
+    builder.Services.AddAuthentication(d =>
+    {
+        d.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    }).AddCookie()
+    .AddGoogle(d =>
+    {
+        d.ClientId = clientId;
+        d.ClientSecret = clientSecret;
+    });
+}
 
 app.Run();
 

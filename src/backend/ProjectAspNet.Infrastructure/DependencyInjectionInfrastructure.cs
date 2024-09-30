@@ -40,6 +40,7 @@ namespace ProjectAspNet.Infrastructure
             AddCryptography(services, configuration);
             AddOpenAi(services, configuration);
             AddAzureStorage(services, configuration);
+            AddServiceBus(services, configuration);
             if (configuration.InMemoryEnviroment())
                 return;
             AddDbContext(services, configuration);
@@ -77,6 +78,8 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<IDeleteRecipeById, SaveRecipe>();
             service.AddScoped<IUpdateRecipe, SaveRecipe>();
             service.AddScoped<IGetDashboardRecipe, SaveRecipe>();
+            service.AddScoped<IDeleteUser, UserRegisterDbContext>();
+            service.AddScoped<IUserByEmail, UserRegisterDbContext>();
         }
 
         public static void AddOpenAi(IServiceCollection services, IConfiguration configuration)
@@ -106,25 +109,25 @@ namespace ProjectAspNet.Infrastructure
         private static void AddAzureStorage(IServiceCollection service, IConfiguration configuration)
         {
             var connectionString = configuration.GetValue<string>("settings:blobStorage:azure");
-            service.AddScoped<IAzureStorageService>(d => new AzureStorageService(new Azure.Storage.Blobs.BlobServiceClient(connectionString)));
+            if(string.IsNullOrEmpty(connectionString) == false)
+                service.AddScoped<IAzureStorageService>(d => new AzureStorageService(new Azure.Storage.Blobs.BlobServiceClient(connectionString)));
         }
 
         private static void AddServiceBus(IServiceCollection service, IConfiguration configuration)
         {
-            var clientConnection = configuration.GetValue<string>("serviceBus:azure");
+            var clientConnection = configuration.GetValue<string>("settings:serviceBus:azure");
 
             var client = new ServiceBusClient(clientConnection, new ServiceBusClientOptions
             {
                 TransportType = ServiceBusTransportType.AmqpWebSockets
             });
 
-            var deleteSender = new DeleteUserSender(client.CreateSender("user"));
-
-            service.AddScoped<IDeleteUserSender>(opt => deleteSender);
+            var sender = new DeleteUserSender(client.CreateSender("user"));
+            service.AddScoped<IDeleteUserSender>(opt => sender);
 
             var processor = new DeleteUserProcessor(client.CreateProcessor("user", new ServiceBusProcessorOptions()
             {
-                MaxConcurrentCalls = 1
+                MaxConcurrentCalls = 1,
             }));
 
             service.AddSingleton(processor);

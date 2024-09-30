@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectAspNet.Infrastructure.DataEntity
 {
-    public class UserRegisterDbContext : IUserAdd, IUserEmailExists, IUserIdentifierExists, IGetUserUpdate, IGetUserTracking, IDeleteUser
+    public class UserRegisterDbContext : IUserAdd, IUserEmailExists, IUserIdentifierExists, IGetUserUpdate, IGetUserTracking, IDeleteUser, IUserByEmail
     {
         private readonly ProjectAspNetDbContext _dbContext;
 
@@ -56,6 +56,11 @@ namespace ProjectAspNet.Infrastructure.DataEntity
             _dbContext.Recipes.RemoveRange(userRecipes);
 
             _dbContext.Users.Remove(user);
+        }
+
+        public async Task<UserEntitie?> UserByEmail(string email)
+        {
+            return await _dbContext.Users.FirstOrDefaultAsync(d => d.Email == email);
         }
     }
 }

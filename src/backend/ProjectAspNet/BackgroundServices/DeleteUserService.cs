@@ -20,6 +20,8 @@ namespace ProjectAspNet.BackgroundServices
         {
             _processor.ProcessMessageAsync += ProcessMessageAsync;
 
+            _processor.ProcessErrorAsync += ProcessErrorAsync;
+
             await _processor.StartProcessingAsync(stoppingToken);
         }
 
@@ -29,12 +31,14 @@ namespace ProjectAspNet.BackgroundServices
 
             var createProvider = _serviceProvider.CreateScope();
 
-            var deleteUseCase = _serviceProvider.GetRequiredService<IDeleteUserUseCase>();
+            var deleteUseCase = createProvider.ServiceProvider.GetRequiredService<IDeleteUserUseCase>();
 
             var userIdentifier = Guid.Parse(message);
 
             await deleteUseCase.Execute(userIdentifier);
         }
+
+        public async Task ProcessErrorAsync(ProcessErrorEventArgs args) => await Task.CompletedTask;
 
         ~DeleteUserService() => Dispose();
 

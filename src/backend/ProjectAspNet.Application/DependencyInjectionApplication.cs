@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjectAspNet.Application.Services.AutoMapper;
+using ProjectAspNet.Application.UseCases.Login;
 using ProjectAspNet.Application.UseCases.Product;
 using ProjectAspNet.Application.UseCases.Recipe;
+using ProjectAspNet.Application.UseCases.Repositories.Login;
 using ProjectAspNet.Application.UseCases.Repositories.Recipe;
 using ProjectAspNet.Application.UseCases.Repositories.User;
 using ProjectAspNet.Application.UseCases.RepositoriesUseCases.Product;
@@ -65,6 +67,7 @@ namespace ProjectAspNet.Application
             service.AddScoped<IUpdateImageRecipe,  UpdateImageRecipeUseCase>();
             service.AddScoped<IRequesteDeleteUserUseCase, RequestDeleteUserUseCase>();
             service.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
+            service.AddScoped<IGoogleLoginUseCase, GoogleLoginUseCase>();
         }
 
         public static void AddRegisterProductCase(IServiceCollection service)

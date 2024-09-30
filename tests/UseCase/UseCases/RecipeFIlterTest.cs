@@ -45,8 +45,10 @@ namespace UseCases
                 CookingTime = request.CookingTime.Distinct().Select(c => (CookingTime)c).ToList(),
                 TitleIngredientsRecipe = request.TitleIngredientsRecipe
             };
+            var storageService = new AzureStorageServiceBuilder();
             var filterRecipe = new RecipeFilterBUilder().Build(user, dto, recipe);
-            return new FilterRecipeUseCase(loggedUser, filterRecipe, mapper);
+            storageService.GetFileUrlMock(user, "dd.jpg");
+            return new FilterRecipeUseCase(loggedUser, filterRecipe, mapper, storageService.Build());
         }
     }
 }

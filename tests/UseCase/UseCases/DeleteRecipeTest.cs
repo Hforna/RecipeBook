@@ -47,8 +47,9 @@ namespace UseCases
             var loggedUser = new LoggedUserBuilder().Build(user.user);
             var deleteRecipe = DeleteRecipeBuilder.Build();
             var getRecipe = new GetRecipeByIdBuilder().Build(user.user, recipe);
+            var storageService = new AzureStorageServiceBuilder();
 
-            return new DeleteRecipeUseCase(getRecipe, loggedUser, deleteRecipe, unitOfWork);
+            return new DeleteRecipeUseCase(getRecipe, loggedUser, deleteRecipe, unitOfWork, storageService.Build());
         }
     }
 }

@@ -42,7 +42,8 @@ namespace UseCases
             var mapper = AutoMapperBuild.Build();
             var loggedUser = new LoggedUserBuilder().Build(user);
             var getRecipeById = new GetRecipeByIdBuilder().Build(user, recipe);
-            return new GetRecipeUseCase(mapper, loggedUser, getRecipeById);
+            var storageService = new AzureStorageServiceBuilder();
+            return new GetRecipeUseCase(mapper, loggedUser, getRecipeById, storageService.Build());
         }
     }
 }

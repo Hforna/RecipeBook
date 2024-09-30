@@ -33,8 +33,9 @@ namespace UseCases
             var mapper = AutoMapperBuild.Build();
             var loggedUser = new LoggedUserBuilder().Build(user);
             var DashBoardRecipe = new GetDashBoardRecipe().Build(user, recipes);
+            var storageService = new AzureStorageServiceBuilder();
 
-            return new RecipeDashboardUseCase(loggedUser, mapper, DashBoardRecipe);
+            return new RecipeDashboardUseCase(loggedUser, mapper, DashBoardRecipe, storageService.Build());
         }
     }
 }
