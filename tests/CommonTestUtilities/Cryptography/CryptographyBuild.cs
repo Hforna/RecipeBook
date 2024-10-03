@@ -14,7 +14,7 @@ namespace CommonTestUtilities.Cryptography
     {
         public static ICryptography Build()
         {
-            return new Sha512Encrypt("ljrbw24=68j/sns");
+            return new BCrypt("ljrbw24=68j/sns");
         }
     }
 }

@@ -15,7 +15,6 @@ using System.Reflection;
 using ProjectAspNet.Infrastructure.Extensions;
 using ProjectAspNet.Domain.Repositories.Security.Tokens;
 using ProjectAspNet.Infrastructure.Security.Tokens;
-using ProjectAspNet.Infrastructure.Security.Cryptography;
 using ProjectAspNet.Domain.Repositories.Security;
 using ProjectAspNet.Domain.Repositories.Recipe;
 using ProjectAspNet.Domain.Repositories.Recipes;
@@ -27,6 +26,7 @@ using ProjectAspNet.Infrastructure.Storage;
 using Azure.Messaging.ServiceBus;
 using ProjectAspNet.Domain.Repositories.ServiceBus;
 using ProjectAspNet.Infrastructure.ServiceBus;
+using ProjectAspNet.Infrastructure.Security.Cryptography;
 
 namespace ProjectAspNet.Infrastructure
 {
@@ -103,7 +103,7 @@ namespace ProjectAspNet.Infrastructure
 
         public static void AddCryptography(IServiceCollection service, IConfiguration configuration)
         {
-            service.AddScoped<ICryptography>(opt => new Sha512Encrypt(configuration.GetSection("settings:application:cryptography").Value!));
+            service.AddScoped<ICryptography, BCryptService>();
         }
 
         private static void AddAzureStorage(IServiceCollection service, IConfiguration configuration)

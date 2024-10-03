@@ -35,9 +35,9 @@ namespace ProjectAspNet.Infrastructure.DataEntity
 
         public async Task<bool> UserIdentifierExists(Guid uid) => await _dbContext.Users.AnyAsync(x => x.UserIdentifier.Equals(uid) && x.Active);
 
-        public async Task<UserEntitie?> LoginByEmailAndPassword(string email, string password)
+        public async Task<UserEntitie?> LoginByEmail(string email)
         {
-            return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Password.Equals(password) && x.Email.Equals(email));
+            return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Email.Equals(email) && x.Active);
         }
 
         public async Task<UserEntitie> getUserById(long id)

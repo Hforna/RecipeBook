@@ -28,13 +28,11 @@ namespace ProjectAspNet.Application.UseCases.User
 
         public async Task<RegisterUserResponse> Execute(LoginUserRequest request)
         {
-            var encryptPassword = _passwordCryptography.Encrypt(request.Password!);
-            var user = await _userExists.LoginByEmailAndPassword(request.Email!, encryptPassword);
+            var user = await _userExists.LoginByEmail(request.Email!);
 
-            if (user is null)
-            {
+            if (user is null || _passwordCryptography.IsValid(request.Password!, user.Password) == false)
                 throw new LoginUserException();
-            }
+   
 
             return new RegisterUserResponse { Name = user.Name, Token = new TokenResponse() { TokenGenerated = _tokenGenerator.Generate(user.UserIdentifier) } };
         }

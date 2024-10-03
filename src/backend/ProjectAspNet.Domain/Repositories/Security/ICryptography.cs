@@ -9,5 +9,7 @@ namespace ProjectAspNet.Domain.Repositories.Security
     public interface ICryptography
     {
         public string Encrypt(string password);
+
+        public bool IsValid(string password, string hashPassword);
     }
 }

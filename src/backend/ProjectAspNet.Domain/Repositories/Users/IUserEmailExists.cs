@@ -11,6 +11,6 @@ namespace ProjectAspNet.Domain.Repositories.Users
     {
         public Task<bool> EmailExists(string email);
 
-        public Task<UserEntitie?> LoginByEmailAndPassword(string email, string password);
+        public Task<UserEntitie?> LoginByEmail(string email);
     }
 }
