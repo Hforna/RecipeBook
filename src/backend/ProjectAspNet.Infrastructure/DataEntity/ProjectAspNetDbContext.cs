@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectAspNet.Domain.Entities;
 using ProjectAspNet.Domain.Entities.Recipes;
+using ProjectAspNet.Domain.Entities.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace ProjectAspNet.Infrastructure.DataEntity
         public DbSet<DishTypeEntitie> DishType { get; set; }
         public DbSet<IngredientEntitie> Ingredients { get; set; }
         public DbSet<InstructionsEntitie> Instructions { get; set; }
+        public DbSet<RefreshTokenEntitie> refreshToken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

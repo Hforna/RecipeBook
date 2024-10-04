@@ -25,11 +25,11 @@ namespace CommonTestUtilities.Repositories
         {
             if (!exists)
             {
-                _repository.Setup(rep => rep.LoginByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user = null!);
+                _repository.Setup(rep => rep.LoginByEmail(user.Email)).ReturnsAsync(user = null!);
             }
             else
             {
-                _repository.Setup(rep => rep.LoginByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user);
+                _repository.Setup(rep => rep.LoginByEmail(user.Email)).ReturnsAsync(user);
             }
         }
 

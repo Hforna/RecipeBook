@@ -6,9 +6,11 @@ using ProjectAspNet.Application.UseCases.Product;
 using ProjectAspNet.Application.UseCases.Recipe;
 using ProjectAspNet.Application.UseCases.Repositories.Login;
 using ProjectAspNet.Application.UseCases.Repositories.Recipe;
+using ProjectAspNet.Application.UseCases.Repositories.Token;
 using ProjectAspNet.Application.UseCases.Repositories.User;
 using ProjectAspNet.Application.UseCases.RepositoriesUseCases.Product;
 using ProjectAspNet.Application.UseCases.RepositoriesUseCases.User;
+using ProjectAspNet.Application.UseCases.Token;
 using ProjectAspNet.Application.UseCases.User;
 using Sqids;
 using System;
@@ -68,6 +70,7 @@ namespace ProjectAspNet.Application
             service.AddScoped<IRequesteDeleteUserUseCase, RequestDeleteUserUseCase>();
             service.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
             service.AddScoped<IGoogleLoginUseCase, GoogleLoginUseCase>();
+            service.AddScoped<IRefreshTokenUseCase, RefreshTokenUseCase>();
         }
 
         public static void AddRegisterProductCase(IServiceCollection service)

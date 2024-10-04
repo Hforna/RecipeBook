@@ -16,7 +16,7 @@ namespace ProjectAspNet.Infrastructure.Migrations.Versions
                 .WithColumn("Title").AsString().NotNullable()
                 .WithColumn("TimeRecipe").AsInt32().Nullable()
                 .WithColumn("Difficulty").AsInt32().Nullable()
-                .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_USER_RECIPE_ID", "users", "Id");
+                .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_USER_RECIPE_ID", "users", "Id").OnDelete(System.Data.Rule.Cascade);
 
             CreateTable("ingredients")
                 .WithColumn("Item").AsString().NotNullable()

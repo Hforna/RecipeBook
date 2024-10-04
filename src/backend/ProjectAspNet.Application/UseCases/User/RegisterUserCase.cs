@@ -4,6 +4,7 @@ using ProjectAspNet.Application.Validators.User;
 using ProjectAspNet.Communication.Requests;
 using ProjectAspNet.Communication.Responses;
 using ProjectAspNet.Domain.Entities;
+using ProjectAspNet.Domain.Entities.Tokens;
 using ProjectAspNet.Domain.Repositories;
 using ProjectAspNet.Domain.Repositories.Security;
 using ProjectAspNet.Domain.Repositories.Security.Tokens;
@@ -25,8 +26,10 @@ namespace ProjectAspNet.Application.UseCases.User
         private readonly IUserAdd _userAdd;
         private readonly IUserEmailExists _userEmailExists;
         private readonly ITokenGenerator _tokenGenerator;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
 
-        public RegisterUserCase(IMapper mapper, ICryptography password, IUnitOfWork unitOfWork, IUserAdd userAdd, IUserEmailExists userEmailExists, ITokenGenerator tokenGenerator)
+        public RegisterUserCase(IMapper mapper, ICryptography password, IUnitOfWork unitOfWork, IUserAdd userAdd, 
+            IUserEmailExists userEmailExists, ITokenGenerator tokenGenerator, IRefreshTokenRepository refreshTokenRepository)
         {
             _mapper = mapper;
             _password = password;
@@ -34,6 +37,7 @@ namespace ProjectAspNet.Application.UseCases.User
             _userAdd = userAdd;
             _userEmailExists = userEmailExists;
             _tokenGenerator = tokenGenerator;
+            _refreshTokenRepository = refreshTokenRepository;
         }
 
         public async Task<RegisterUserResponse> Execute(RegisterUserRequest request)
@@ -47,7 +51,25 @@ namespace ProjectAspNet.Application.UseCases.User
             await _userAdd.Add(user);
             await _unitOfWork.Commit();
 
-            return new RegisterUserResponse() {Name = request.Name, Token = new TokenResponse() { TokenGenerated = _tokenGenerator.Generate(user.UserIdentifier)} };
+            var refreshToken = new RefreshTokenEntitie()
+            {
+                UserId = user.Id,
+            };
+
+            if (await _refreshTokenRepository.TokenExists(user))
+            {
+                await _refreshTokenRepository.SaveRefreshToken(refreshToken, user);
+            } else
+            {
+                await _refreshTokenRepository.AddRefreshToken(refreshToken);
+            }
+
+            await _unitOfWork.Commit();
+
+            return new RegisterUserResponse() {Name = request.Name, 
+                Token = new TokenResponse() { AccessToken = _tokenGenerator.Generate(user.UserIdentifier), 
+                    RefreshToken = refreshToken.Value}               
+            };
         }
 
         public async Task Validate(RegisterUserRequest request)

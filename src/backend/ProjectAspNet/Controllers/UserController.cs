@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using ProjectAspNet.Application.UseCases.Repositories.Token;
 using ProjectAspNet.Application.UseCases.Repositories.User;
 using ProjectAspNet.Application.UseCases.RepositoriesUseCases.User;
 using ProjectAspNet.Attributes;
@@ -19,6 +20,15 @@ namespace ProjectAspNet.Controllers
             var result = await userCase.Execute(request);
 
             return Created(string.Empty, result);
+        }
+
+        [HttpPost("refresh-token")]
+        [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> RefreshToken([FromBody] RequestRefreshToken request, [FromServices] IRefreshTokenUseCase useCase)
+        {
+            var result = await useCase.Execute(request);
+
+            return Ok(result);
         }
 
         [HttpGet]

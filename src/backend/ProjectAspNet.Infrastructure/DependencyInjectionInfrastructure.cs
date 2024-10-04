@@ -80,6 +80,7 @@ namespace ProjectAspNet.Infrastructure
             service.AddScoped<IGetDashboardRecipe, SaveRecipe>();
             service.AddScoped<IDeleteUser, UserRegisterDbContext>();
             service.AddScoped<IUserByEmail, UserRegisterDbContext>();
+            service.AddScoped<IRefreshTokenRepository, RefreshTokenDbContext>();
         }
 
         public static void AddOpenAi(IServiceCollection services, IConfiguration configuration)
