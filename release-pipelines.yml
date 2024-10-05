@@ -1,0 +1,36 @@
+trigger:
+- master
+
+variables:
+ 
+  dockerRegistryServiceConnection: 'a373061f-9dc7-455f-b907-038ade9f1880'
+  imageRepository: 'dockerfile'
+  containerRegistry: 'productions.azurecr.io'
+  dockerfilePath: 'Dockerfile'
+  tag: '$(Build.BuildId)'
+
+pool:
+  vmImage: 'ubuntu-latest'
+    
+
+steps:
+
+- task: DownloadSecureFile@1
+  displayName: Download appsettings
+  name: appsettings
+  inputs:
+   secureFile: 'appsettings.Production.json'
+
+- script: |
+   cp $(appsettings.secureFilePath) src/backend/ProjectAspNet
+
+- task: Docker@2
+  displayName: Build and push an image to container registry
+  inputs:
+    command: buildAndPush
+    repository: $(imageRepository)
+    dockerfile: $(dockerfilePath)
+    containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      lasted
+      $(tag)
