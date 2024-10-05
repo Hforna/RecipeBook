@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY  src/ .
 
-WORKDIR /backend/ProjectAspNet
+WORKDIR /app/backend/ProjectAspNet
 
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/out
