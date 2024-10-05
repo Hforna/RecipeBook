@@ -1,8 +1,7 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 as build-env
-
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
-COPY  src/ .
+COPY src/ .
 
 WORKDIR /app/backend/ProjectAspNet
 
@@ -10,11 +9,8 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o /app/out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
-
 WORKDIR /app
 
 COPY --from=build-env /app/out .
 
-ENTRYPOINT [ "dotnet", "ProjectAspNet.dll" ]
-
-EXPOSE 8080
+ENTRYPOINT ["dotnet", "ProjectAspNet.dll"]
