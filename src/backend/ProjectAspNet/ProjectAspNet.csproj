@@ -8,13 +8,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\tests\CommonTestUtilities\CommonTestUtilities.csproj" />
     <ProjectReference Include="..\..\shared\ProjectAspNet.Communication\ProjectAspNet.Communication.csproj" />
     <ProjectReference Include="..\..\shared\ProjectAspNet.Exceptions\ProjectAspNet.Exceptions.csproj" />
     <ProjectReference Include="..\ProjectAspNet.Application\ProjectAspNet.Application.csproj" />
+    <ProjectReference Include="..\ProjectAspNet.Domain\ProjectAspNet.Domain.csproj" />
+    <ProjectReference Include="..\ProjectAspNet.Infrastructure\ProjectAspNet.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
