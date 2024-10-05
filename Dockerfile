@@ -13,6 +13,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 
 WORKDIR /app
 
-COPY --from=build-env "/app/opt" .
+COPY --from=build-env /app/opt .
 
 ENTRYPOINT [ "dotnet", "ProjectAspNet.dll" ]
