@@ -12,6 +12,8 @@ using FluentMigrator.Runner;
 using ProjectAspNet.Infrastructure.ServiceBus;
 using ProjectAspNet.BackgroundServices;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using ProjectAspNet.Infrastructure.DataEntity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,11 +65,25 @@ builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
 builder.Services.AddHttpContextAccessor();
 
 
-builder.Services.AddHostedService<DeleteUserService>();
+if (builder.Configuration.InMemoryEnviroment() == false)
+{
+    AddGoogleAuthentication();
+    builder.Services.AddHostedService<DeleteUserService>();
+}
 
-AddGoogleAuthentication();
+builder.Services.AddHealthChecks().AddDbContextCheck<ProjectAspNetDbContext>();
 
 var app = builder.Build();
+
+app.MapHealthChecks("/Health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions()
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+    }
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
