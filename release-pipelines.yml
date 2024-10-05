@@ -6,7 +6,7 @@ variables:
   dockerRegistryServiceConnection: 'a373061f-9dc7-455f-b907-038ade9f1880'
   imageRepository: 'dockerfile'
   containerRegistry: 'productions.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: 'Dockerfile'
   tag: '$(Build.BuildId)'
 
 pool:
