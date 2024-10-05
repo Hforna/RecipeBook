@@ -16,3 +16,5 @@ WORKDIR /app
 COPY --from=build-env /opt .
 
 ENTRYPOINT [ "dotnet", "ProjectAspNet.dll" ]
+
+EXPOSE 8080
