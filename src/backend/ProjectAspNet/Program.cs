@@ -73,6 +73,7 @@ if (builder.Configuration.InMemoryEnviroment() == false)
 
 builder.Services.AddHealthChecks().AddDbContextCheck<ProjectAspNetDbContext>();
 
+
 var app = builder.Build();
 
 app.MapHealthChecks("/Health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions()
