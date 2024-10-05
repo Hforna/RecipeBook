@@ -10,10 +10,20 @@ variables:
   tag: '$(Build.BuildId)'
 
 pool:
-  vmImage = 'ubuntu-latest'
+  vmImage = "Self-hosted"
     
 
 steps:
+
+- task: DownloadSecureFile@1
+  displayName: Download appsettings
+  name: appsettings
+  inputs:
+   secureFile: 'appsettings.Production.json'
+
+- script: |
+   cp $(appsettings.secureFilePath) src/backend/ProjectAspNet
+
 - task: Docker@2
   displayName: Build and push an image to container registry
   inputs:
