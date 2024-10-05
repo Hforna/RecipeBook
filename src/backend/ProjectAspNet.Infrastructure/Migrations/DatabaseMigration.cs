@@ -30,7 +30,7 @@ namespace ProjectAspNet.Infrastructure.Migrations
             var parameters = new DynamicParameters();
             parameters.Add("name", dbName);
             var dbInServer = connectServer.Query("SELECT * FROM sys.databases where name = @name", parameters);
-            if (dbInServer is null)
+            if (dbInServer == null)
                 connectServer.Execute($"CREATE DATABASE {dbName}");
         }
 
