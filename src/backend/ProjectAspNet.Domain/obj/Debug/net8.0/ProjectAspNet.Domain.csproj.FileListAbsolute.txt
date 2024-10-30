@@ -1,0 +1,13 @@
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\bin\Debug\net8.0\ProjectAspNet.Domain.deps.json
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\bin\Debug\net8.0\ProjectAspNet.Domain.dll
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\bin\Debug\net8.0\ProjectAspNet.Domain.pdb
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\obj\Debug\net8.0\ProjectAspNet.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\obj\Debug\net8.0\ProjectAspNet.Domain.AssemblyInfoInputs.cache
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\obj\Debug\net8.0\ProjectAspNet.Domain.AssemblyInfo.cs
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\obj\Debug\net8.0\ProjectAspNet.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\obj\Debug\net8.0\ProjectAspNet.Domain.sourcelink.json
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\obj\Debug\net8.0\ProjectAspNet.Domain.dll
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\obj\Debug\net8.0\refint\ProjectAspNet.Domain.dll
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\obj\Debug\net8.0\ProjectAspNet.Domain.pdb
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\obj\Debug\net8.0\ref\ProjectAspNet.Domain.dll
+C:\Users\Henrique\Desktop\WebApiLearning\src\backend\ProjectAspNet.Domain\obj\Debug\net8.0\ProjectAspNet.Domain.csproj.AssemblyReference.cache
