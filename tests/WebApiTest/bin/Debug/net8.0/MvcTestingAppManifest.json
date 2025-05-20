@@ -1,0 +1,9 @@
+{
+  "CommonTestUtilities, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Henrique\\Desktop\\WebApiLearning\\tests\\CommonTestUtilities",
+  "ProjectAspNet.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Henrique\\Desktop\\WebApiLearning\\src\\backend\\ProjectAspNet.Application",
+  "ProjectAspNet.Communication, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Henrique\\Desktop\\WebApiLearning\\src\\shared\\ProjectAspNet.Communication",
+  "ProjectAspNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Henrique\\Desktop\\WebApiLearning\\src\\backend\\ProjectAspNet",
+  "ProjectAspNet.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Henrique\\Desktop\\WebApiLearning\\src\\backend\\ProjectAspNet.Domain",
+  "ProjectAspNet.Exceptions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Henrique\\Desktop\\WebApiLearning\\src\\shared\\ProjectAspNet.Exceptions",
+  "ProjectAspNet.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Henrique\\Desktop\\WebApiLearning\\src\\backend\\ProjectAspNet.Infrastructure"
+}

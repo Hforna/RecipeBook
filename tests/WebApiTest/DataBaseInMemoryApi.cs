@@ -19,6 +19,7 @@ namespace WebApiTest
         public UserEntitie? _user;
         public string? _password;
         public Recipe? _recipe;
+        public ProjectAspNetDbContext DbContext;
 
         public string getPassword() => _password!;
         public string getUsername() => _user!.Name;
@@ -48,6 +49,7 @@ namespace WebApiTest
                     using var scope = services.BuildServiceProvider().CreateScope();
                     var dbContext = scope.ServiceProvider.GetRequiredService<ProjectAspNetDbContext>();
                     dbContext.Database.EnsureDeleted();
+                    DbContext = dbContext;
                     _recipe = RecipeEntitieTest.Build();
                     (_user, _password) = UserEntitieTest.Build();
                     _recipe.UserId = _user.Id;

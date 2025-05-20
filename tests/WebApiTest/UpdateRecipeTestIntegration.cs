@@ -4,7 +4,9 @@ using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Request.Recipe;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ProjectAspNet.Exceptions.Exceptions;
+using ProjectAspNet.Infrastructure.DataEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +18,13 @@ using System.Threading.Tasks;
 
 namespace WebApiTest
 {
-    public class UpdateRecipeTestIntegration : IClassFixture<DataBaseInMemoryApi>
+    public class UpdateRecipeTestIntegration : IClassFixture<DataBaseInMemoryApi>, IAsyncDisposable
     {
         private readonly HttpClient _httpClient;
         private readonly Guid _userIdentifier;
         private readonly string _name;
         private readonly long _recipeId;
+        private readonly ProjectAspNetDbContext _dbContext;
 
         public UpdateRecipeTestIntegration(DataBaseInMemoryApi factory)
         {
@@ -29,6 +32,16 @@ namespace WebApiTest
             _userIdentifier = factory.getUserIdentifier();
             _name = factory.getUsername();
             _recipeId = factory.getRecipeId();
+            _dbContext = factory.DbContext;
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM ingredients");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM instructions");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM recipes");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM dishtype");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM users");
         }
 
         [Fact]

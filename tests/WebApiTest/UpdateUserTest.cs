@@ -2,8 +2,10 @@
 using CommonTestUtilities.Repositories;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ProjectAspNet.Communication.Requests;
 using ProjectAspNet.Exceptions.Exceptions;
+using ProjectAspNet.Infrastructure.DataEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +17,15 @@ using System.Threading.Tasks;
 
 namespace WebApiTest
 {
-    public class UpdateUserTest : IClassFixture<DataBaseInMemoryApi>
+    public class UpdateUserTest : IClassFixture<DataBaseInMemoryApi>, IAsyncDisposable
     {
         private readonly HttpClient _httpClient;
         private readonly string _getEmail;
         private readonly string _username;
         private readonly string _password;
         private readonly Guid _userIdentifier;
+        private readonly ProjectAspNetDbContext _dbContext;
+
         public UpdateUserTest(DataBaseInMemoryApi factory)
         {
             _httpClient = factory.CreateClient();
@@ -29,6 +33,7 @@ namespace WebApiTest
             _username = factory.getUsername();
             _password = factory.getPassword();
             _userIdentifier = factory.getUserIdentifier();
+            _dbContext = factory.DbContext;
         }
 
         [Fact]
@@ -53,6 +58,15 @@ namespace WebApiTest
             var listErrors = responseContent.RootElement.GetProperty("errors").EnumerateArray();
             var errors = listErrors.Select(e => e.GetString()).ToList();
             errors.Should().Contain(ResourceExceptMessages.EMAIL_ALREADY_EXISTS);
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM ingredients");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM instructions");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM recipes");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM dishtype");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM users");
         }
     }
 }

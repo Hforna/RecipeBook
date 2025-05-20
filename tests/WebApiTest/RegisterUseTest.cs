@@ -2,6 +2,8 @@
 using CommonTestUtilities.Request.User;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using ProjectAspNet.Infrastructure.DataEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,25 @@ using System.Threading.Tasks;
 
 namespace WebApiTest
 {
-   public class RegisterUseTest : IClassFixture<DataBaseInMemoryApi>
+    public class RegisterUseTest : IClassFixture<DataBaseInMemoryApi>, IAsyncDisposable
     {
         private readonly HttpClient _httpClient;
+        private readonly ProjectAspNetDbContext _dbContext;
 
-        public RegisterUseTest(DataBaseInMemoryApi factory) => _httpClient = factory.CreateClient();
+        public RegisterUseTest(DataBaseInMemoryApi factory)
+        {
+            _httpClient = factory.CreateClient();
+            _dbContext = factory.DbContext;
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM ingredients");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM instructions");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM recipes");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM dishtype");
+            await _dbContext.Database.ExecuteSqlRawAsync("DELETE FROM users");
+        }
 
         [Fact]
         public async Task Success()
