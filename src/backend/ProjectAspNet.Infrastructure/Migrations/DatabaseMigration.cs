@@ -18,20 +18,7 @@ namespace ProjectAspNet.Infrastructure.Migrations
 
         public static void Migrate(string connectionString, IServiceProvider serviceProvider)
         {
-            EnsureDatabaseSqlServer(connectionString);
             MigrationDatabase(serviceProvider);
-        }
-        private static void EnsureDatabaseSqlServer(string connectionString)
-        {
-            var stringBuilder = new SqlConnectionStringBuilder(connectionString);
-            var dbName = stringBuilder.InitialCatalog;
-            stringBuilder.Remove(dbName);
-            var connectServer = new SqlConnection(stringBuilder.ConnectionString);
-            var parameters = new DynamicParameters();
-            parameters.Add("name", dbName);
-            var dbInServer = connectServer.Query("SELECT * FROM sys.databases where name = @name", parameters);
-            if (dbInServer == null)
-                connectServer.Execute($"CREATE DATABASE {dbName}");
         }
 
         private static void MigrationDatabase(IServiceProvider serviceProvider)
